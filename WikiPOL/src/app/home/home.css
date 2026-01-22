@@ -1,0 +1,37 @@
+/* Título centrado */
+h1 {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+}
+
+/* Contenedor centrado con espacio igual a ambos lados */
+.articles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1500px;  /* ancho máximo */
+  margin: 0 auto;     /* centrado horizontal */
+  padding: 0 2rem;    /* espacio igual a izquierda y derecha */
+}
+
+/* Tarjetas ocupando casi todo el ancho del contenedor */
+.article-card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 100%;        /* ocupa todo el ancho disponible dentro del contenedor */
+  overflow: hidden;
+}
+
+
+.article-card h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.article-card p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

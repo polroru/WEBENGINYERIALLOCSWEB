@@ -1,0 +1,18 @@
+<div class="header">
+  <div class="left">
+    <button class="btn-accion" (click)="onSubmit()">Create</button>
+  </div>
+
+  <h1 [routerLink]="['/']" class="logo">WIKIPOL</h1>
+
+  <div class="right">
+    <span class="username" [hidden]="!authService.isLoggedIn()">
+      {{ authService.currentUser()?.username}}
+    </span>
+    <button class="btn-accion" [routerLink]="['/sign-in']" [hidden]="authService.isLoggedIn()">Sign In</button>
+    <button class="btn-accion" [routerLink]="['/sign-up']" [hidden]="authService.isLoggedIn()">Sign Up</button>
+    <button class="btn-logout" (click)="authService.logout()" [hidden]="!authService.isLoggedIn()">Logout</button>
+    <button class="btn-logout" (click)="onSubmitFav()" [hidden]="!authService.isLoggedIn()">Favorits</button>
+
+  </div>
+</div>

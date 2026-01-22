@@ -1,0 +1,7 @@
+para peticiones:
+
+
+se escribe por teclado la url: http://localhost:3000/articles/:title
+siendo title una variable que se guarda en req.params.title,
+esta se guarda en una variable privada de la clase article, la cual en el constructor,
+mediante el uso de una funcion descrita en articles-services, se hace un http request.

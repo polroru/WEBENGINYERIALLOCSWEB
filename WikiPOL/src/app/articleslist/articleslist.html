@@ -1,0 +1,14 @@
+<h1>Articles</h1>
+
+<div class="articles-container">
+  @if (articles() && articles().length > 0) {
+    @for(article of articles(); track article.id) {
+      <div class="article-card" (click)="openArticle(article.id)">
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+      </div>
+    }
+  } @else {
+    <p>No s'ha trobat cap article per "{{title}}"</p>
+  }
+</div>

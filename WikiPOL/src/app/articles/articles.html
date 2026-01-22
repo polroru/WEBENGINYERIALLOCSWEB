@@ -1,0 +1,26 @@
+<div class="article-detail">
+  <h1>{{ article()?.title }}</h1>
+  <p>{{ article()?.content }}</p>
+
+  <div class="article-meta">
+    <span>Creat per: {{ article()?.creatBy }} </span>
+    <span>({{ article()?.createdAt | date:'short' }})</span>
+  </div>
+
+  @if(article()!.actualitzatBy) {
+    <div class="article-meta">
+      <span>Actualitzat per: {{ article()?.actualitzatBy }}</span>
+      <span>({{ article()?.updatedAt | date:'short' }})</span>
+    </div>
+  }
+
+  <button type="submit" (click)="onSubmit()">Editar</button>
+
+  <button type="button" (click)="afegirFav()"
+        [style.background-color]="isFav() ? 'yellow' : '#007bff'">
+  Favorit
+</button>
+
+
+
+</div>

@@ -1,0 +1,9 @@
+<div class="search-container">
+  <input
+    type="text"
+    [formControl]="busqueda"
+    placeholder="Buscar article"
+    class="search-input"
+    (keyup.enter)="onSubmit()"
+  >
+</div>

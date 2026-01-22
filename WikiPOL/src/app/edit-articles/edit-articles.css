@@ -1,0 +1,36 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+input,
+.content-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1.5px solid #888;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+.content-box:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.content-box {
+  height: 140px;
+  resize: vertical;
+}

@@ -1,0 +1,40 @@
+<div class="container">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
+    <h2>Crear usuari</h2>
+
+    <label for="username">Nom d'usuari</label>
+    <input
+      type="text"
+      id="username"
+      formControlName="username"
+      placeholder="username"
+      [class.invalid]="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched"
+    >
+    <span class="error">Introdueix nom d'usuari (minim 3 caracteres)</span>
+
+    <label for="email">Correu electrònic</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="test@test.com"
+      [class.invalid]="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched"
+    >
+    <span class="error">Email no vàlid</span>
+
+    <label for="password">Contrasenya</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      [class.invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
+    >
+    <span class="error">Contrasenya ha de tindre 6 caràcters</span>
+
+    <button type="submit">Registrarse</button>
+
+    <p class="signin-link">
+      Ja ets usuari? <a routerLink="/sign-in">Inicia sessió</a>
+    </p>
+  </form>
+</div>

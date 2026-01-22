@@ -1,0 +1,16 @@
+<form [formGroup]="articleForm">
+
+  <label for="title">Title:</label>
+  <input id="title" formControlName="title" />
+
+  <label for="content">Content:</label>
+  <textarea id="content" formControlName="content" class="content-box"></textarea>
+
+  <button type="submit" (click)="onSubmit()">Afegir article</button>
+</form>
+
+@if (succes) {
+  <p class="Sucess">Article afegit!</p>
+}
+
+

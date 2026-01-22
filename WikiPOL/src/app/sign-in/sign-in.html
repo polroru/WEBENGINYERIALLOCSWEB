@@ -1,0 +1,30 @@
+<div class="container">
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="sign-in-form">
+    <h2>Iniciar <s></s>essió</h2>
+
+    <label for="email">Correu electrònic</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="user@gmail.com"
+      [class.invalid]="signInForm.get('email')?.invalid && signInForm.get('email')?.touched"
+    >
+    <span class="error">Ingresa un correu vàlid</span>
+
+    <label for="password">Contrasenya</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      [class.invalid]="signInForm.get('password')?.invalid && signInForm.get('password')?.touched"
+    >
+    <span class="error">La contrasenya es obligatòria</span>
+
+    <button type="submit">Entrar</button>
+
+    <p class="signup-link">
+      No tens usuari? <a routerLink="/signup">Regístrat</a>
+    </p>
+  </form>
+</div>

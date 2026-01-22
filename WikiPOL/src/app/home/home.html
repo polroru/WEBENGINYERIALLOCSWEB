@@ -1,0 +1,9 @@
+<h1>Articles</h1>
+<div class="articles-container">
+  @for(article of articles(); track article.id) {
+    <div class="article-card" (click)="openArticle(article.id)">
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.content }}</p>
+    </div>
+  }
+</div>

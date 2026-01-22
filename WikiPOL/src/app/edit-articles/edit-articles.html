@@ -1,0 +1,17 @@
+<div>
+  <form [formGroup]="editArticleForm" (ngSubmit)="save()">
+
+    <label for="title">Tittle:</label>
+    <input id="title" type="text" formControlName="title" />
+
+    <label for="content">Content:</label>
+    <textarea
+      id="content"
+      class="content-box"
+      formControlName="content">
+    </textarea>
+
+    <button type="submit">Guardar canvis</button>
+
+  </form>
+</div>
