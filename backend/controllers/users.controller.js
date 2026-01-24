@@ -2,7 +2,7 @@ import { addDBUser, searchUserDBEmail, searchUserDBUsername, userFavoritesDB, ad
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../middleware/validate_user.js";
 import  bcrypt from 'bcrypt';
-import {getDBArticleById} from "../models/articles_model.js";
+import { User } from '../models/users_models.js';
 
 
 export async function signUp(req, res) {
@@ -199,17 +199,21 @@ export async function addFavoriteArticle(req, res){
 
 //funcio per veure si un id d'article es favorit
 export async function isFavorite(req, res) {
-  const username = req.params.username;
+  const username = req.user.username; // mejor que venir por params
   const articleId = req.query.articleId;
 
-  const user = await searchFavoriteIdDB(username, articleId);
+  if (!articleId) return res.status(400).json({ error: 'Falta articleId' });
 
-  // Si user no es null, es true. Si es null, es false.
-  const isFav = user !== null;
+  console.log('isFavorite - username:', username, 'articleId:', articleId);
 
-  // IMPORTANTE: Enviamos el booleano directo, sin objeto
-  return res.json(isFav);
+  const user = await User.findOne({
+    username,
+    favorites: { $in: [articleId] } // perfecto si son strings
+  });
+
+  return res.json(user !== null);
 }
+
 
 
 //trec de favorit si existeix user, esta el id en l'array de favorit

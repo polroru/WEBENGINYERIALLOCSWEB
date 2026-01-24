@@ -69,7 +69,7 @@ export async function editDBArticle(article, username) {
 
 export async function searchDBArticlesbyId(favoriteArticlesId){
   //como no se puede borrar articulos (en principio), no se controla casos de que no exista el id
-  const articles = await articleMongooseModel.find({ id: {$in: favoriteArticlesId}});
+  const articles = await articleMongooseModel.find({ _id: {$in: favoriteArticlesId}});
   return articles;
 }
 
