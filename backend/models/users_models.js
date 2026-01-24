@@ -8,7 +8,7 @@ const userSchema = new mongodbInstance.Schema({
   password: { type: String, required: true },
   /*Llista de favs, amb  referencia a article amb el seu id, default es null*/
   favorites: {
-  type: [{type: Number}],
+  type: [{type: String}],     // array de strings
   default: []
   }
 });
@@ -60,7 +60,7 @@ export async function addFavoriteDBArticle(username, articleId){
 }
 
 export async function searchFavoriteIdDB(username, articleId){
-  return await User.findOne({username: username, favorites:articleId});
+  return await User.findOne({username: username, favorites:{ $in: [articleId]}});
 
 }
 

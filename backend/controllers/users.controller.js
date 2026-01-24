@@ -178,7 +178,7 @@ export async function userFavorites(req, res) {
 export async function addFavoriteArticle(req, res){
 
   //agafo el id i ho transformo a numero per si un cas
-  const articleId = Number(req.body.articleId);
+  const articleId = req.body.articleId;
 
   const username = req.params.username;
   console.log(articleId);
@@ -200,7 +200,7 @@ export async function addFavoriteArticle(req, res){
 //funcio per veure si un id d'article es favorit
 export async function isFavorite(req, res) {
   const username = req.params.username;
-  const articleId = Number(req.query.articleId);
+  const articleId = req.query.articleId;
 
   const user = await searchFavoriteIdDB(username, articleId);
 
@@ -216,7 +216,7 @@ export async function isFavorite(req, res) {
 export async function removeFavorite(req, res){
   console.log("vamos a eliminar");
   //agafo el id i ho transformo a numero per si un cas
-  const articleId = Number(req.query.articleId);
+  const articleId = req.query.articleId;
 
   const username = req.params.username;
   const resultat = await removeFavoriteDB(username, articleId);

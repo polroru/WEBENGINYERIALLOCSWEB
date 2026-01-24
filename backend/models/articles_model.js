@@ -1,7 +1,7 @@
 import { mongodbInstance } from '../infrastructure/mongodb-connection.js';
+import { ObjectId } from 'mongodb';
 
 const articleSchema = new mongodbInstance.Schema({
-  id: {type: Number,  unique: true,index: true},
   title: String,
   content: String,
   creatBy: { type: String, required: true },
@@ -28,18 +28,14 @@ export async function getDBArticlesByTitle(title) {
 
 
 export async function getDBArticleById(id) {
-  const article = await articleMongooseModel.findOne({id: id});
+  const article = await articleMongooseModel.findOne({ _id: new ObjectId(id) });  
   return article;
 }
 
 
 export async function addDBArticle(article, username) {
-  // Obtenim ultim id
-  const lastArticle = await articleMongooseModel.findOne().sort({ id: -1 }); //busquem el primer objecte que ens surti, pero ordenem els id de forma descendent (agafa el id mes alt)
-  const lastId = lastArticle ? lastArticle.id : 0; //guarda lastId(id mes alt), en cas de que sigui null, afegim un id 0
-
+    
   const newArticle = new articleMongooseModel({
-    id: lastId + 1, //afegim +1 al id, ja que sino es repetiria (amb el del id més alt)
     title: article.title,
     content: article.content,
     creatBy: username
@@ -53,7 +49,7 @@ export async function addDBArticle(article, username) {
 
 export async function editDBArticle(article, username) {
   const updated = await articleMongooseModel.findOneAndUpdate(
-    { id: article.id },
+    { id: new ObjectId(article.id) },
     { title: article.title,
       content: article.content,
       actualitzatBy: username
@@ -64,7 +60,10 @@ export async function editDBArticle(article, username) {
   if (!updated) return null;
 
   console.log("Article editat");
-  return updated;
+  return{
+    ...updated.toObject(), //... es un "spread operator", serviex per a copiar totes les propietats dins d'un objecte a un nou
+    _id: updated._id.toString() //edito el tipo de dada del camp _id de pasar el tipus de dada "ObjectId" a string per a que el frontend la pugi utilitzar de forma correcta (el id)
+  }
 }
 
 

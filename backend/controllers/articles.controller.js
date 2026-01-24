@@ -15,7 +15,7 @@ export async function getArticlesByTitle(req, res) {
 
 
 export async function getArticleById(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   const article = await getDBArticleById(id);
   res.json(article);
 }
