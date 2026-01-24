@@ -2,8 +2,8 @@
 
 <div class="articles-container">
   @if (articles() && articles().length > 0) {
-    @for(article of articles(); track article.id) {
-      <div class="article-card" (click)="openArticle(article.id)">
+    @for(article of articles(); track article._id) {
+      <div class="article-card" (click)="openArticle(article._id)">
         <h2>{{ article.title }}</h2>
         <p>{{ article.content }}</p>
       </div>

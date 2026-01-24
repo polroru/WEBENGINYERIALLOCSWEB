@@ -25,14 +25,13 @@ export class Articles {
   protected isFav = signal<boolean>(false); // per defecte es no fav, pero no te res a veure
 
   constructor() {
-    let id;
     this.route.params.subscribe(params => { //observable para ver si cambian los parametros dinamicos (:title)
-      id = params['id']; //asigna el valor de :title a la variable title
+      const id = params['id']; //asigna el valor de :title a la variable title, estoy cogiendo id del parametro al que me subscribo
       this.articlesService.getArticleById(id).subscribe(m => { //observable para la comunicacion http, con el objeto article
         this.article.set(m); //set en el objeto article (signal)
 
         if(this.authService.isLoggedIn()){
-          this.authService.isFavorite(m.id).subscribe(fav => {
+          this.authService.isFavorite(m._id).subscribe(fav => {
             this.isFav.set(fav); // true si ya es favorito, false si no
           });
         }
@@ -44,7 +43,7 @@ export class Articles {
 
   onSubmit(){
     if(this.authService.isLoggedIn()){
-      this.router.navigate(['/articles/search', this.article()!.title.toLowerCase(), 'edit', this.article()!.id]);
+      this.router.navigate(['/articles/search', this.article()!.title.toLowerCase(), 'edit', this.article()!._id]);
     }else{
       console.log("Inicia sesió");
     }
@@ -57,7 +56,7 @@ export class Articles {
       this.router.navigate(['/sign-in']); // redirigx al login
     }else{
       console.log("hola");
-      const articleId = this.article()!.id;
+      const articleId = this.article()!._id;
       this.authService.isFavorite(articleId).subscribe(currentFav => {
       if(currentFav) {
         this.authService.removeFav(articleId).subscribe(() => this.isFav.set(false));

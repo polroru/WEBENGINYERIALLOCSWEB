@@ -6,9 +6,10 @@
   <h1 [routerLink]="['/']" class="logo">WIKIPOL</h1>
 
   <div class="right">
-    <span class="username" [hidden]="!authService.isLoggedIn()">
-      {{ authService.currentUser()?.username}}
-    </span>
+<span class="username" [hidden]="!authService.isLoggedIn()">
+  {{ authService.currentUser() }}
+</span>
+
     <button class="btn-accion" [routerLink]="['/sign-in']" [hidden]="authService.isLoggedIn()">Sign In</button>
     <button class="btn-accion" [routerLink]="['/sign-up']" [hidden]="authService.isLoggedIn()">Sign Up</button>
     <button class="btn-logout" (click)="authService.logout()" [hidden]="!authService.isLoggedIn()">Logout</button>

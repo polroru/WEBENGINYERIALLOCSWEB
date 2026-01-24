@@ -34,7 +34,7 @@ signInForm = new FormGroup({
     if (this.signInForm.valid) {
       console.log('Datos del login:', this.signInForm.value);
       this.authService.signIn(this.signInForm.value).subscribe(res => { //observable para la comunicacion http, con el objeto article
-        this.authService.currentUser.set(res.user); //set en el objeto article (signal)
+        this.authService.currentUser.set(res.user.username); //set en el objeto article (signal)
         this.authService.userToken = res.token; //per utilitzar el token mentres navego
         localStorage.setItem('userToken', res.token); //per mantenir el token tot i recarregar pagina o tancar pagina
         this.router.navigate(['/']);

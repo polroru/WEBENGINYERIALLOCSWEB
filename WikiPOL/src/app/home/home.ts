@@ -23,7 +23,7 @@ export class Home {
     });
   }
 
-  openArticle(id: Number){
+  openArticle(id: string){
     this.router.navigate(['/articles/search/expand', id]);
   }
 

@@ -53,13 +53,13 @@ export class EditArticles {
   save() {
     if(this.editArticleForm.valid){
       const articleToUpdate = {
-        id: this.article!.id,
+        id: this.article!._id,
         title: this.editArticleForm.value.title,
         content: this.editArticleForm.value.content
     };
 
   this.articlesService.editArticle(articleToUpdate).subscribe(updatedArticle => {
-    this.router.navigate(['/articles/search/expand', updatedArticle.id]);
+    this.router.navigate(['/articles/search/expand', updatedArticle._id]);
   });
     } else {
       console.log('Form no es vàlid');
