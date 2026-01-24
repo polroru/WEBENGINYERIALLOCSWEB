@@ -86,7 +86,7 @@ export class AuthService {
 
     //borrar favorit
   removeFav(articleId: string): Observable<{message: string}> {
-    const username = this.currentUser;
+    const username = this.currentUser();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.userToken || ''}`

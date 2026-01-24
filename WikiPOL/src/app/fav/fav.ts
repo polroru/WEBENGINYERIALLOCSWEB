@@ -24,6 +24,7 @@ export class Fav {
   loadArticles() {
     if(this.authService.isLoggedIn()){
       this.articlesService.getFavorites().subscribe((articlesArray: Article[]) => {
+         console.log('Favoritos que llegaron:', articlesArray);
         this.articles.set(articlesArray);
       });
     }
