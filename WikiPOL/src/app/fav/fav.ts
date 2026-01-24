@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ArticlesService } from '../services/articles-service';
 import { Article } from '../models/Article';
 import { AuthService } from '../services/authservice';
@@ -11,7 +11,6 @@ import { AuthService } from '../services/authservice';
   styleUrl: './fav.css',
 })
 export class Fav {
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
   private articlesService = inject(ArticlesService);
   private authService = inject(AuthService);
@@ -31,7 +30,7 @@ export class Fav {
 
 }
 
-   openArticle(id: Number){
+   openArticle(id: string){
     this.router.navigate(['/articles/search/expand', id]);
   }
 }

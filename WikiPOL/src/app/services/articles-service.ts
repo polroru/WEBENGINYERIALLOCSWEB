@@ -47,14 +47,14 @@ export class ArticlesService {
     });
     const body = {articleData};
 
-    return this.http.put<Article>(`${this.url}/articles/edit/${articleData.id}`, body, { headers });
+    return this.http.put<Article>(`${this.url}/articles/edit/${articleData._id}`, body, { headers });
   }
 
   getRandomArticles(): Observable<Article[]> {
     return this.http.get<Article[]>((`${this.url}/articles`));
   }
 
-  getArticleById(id: Number): Observable<Article>{
+  getArticleById(id: string): Observable<Article>{
     return this.http.get<Article>(`${this.url}/articles/expand/${id}`);
   }
 

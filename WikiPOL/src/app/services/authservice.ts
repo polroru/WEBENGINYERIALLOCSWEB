@@ -3,7 +3,6 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
 import { Router } from '@angular/router';
-import { LocalMemoryUser } from '../models/LocalMemoryUser';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +11,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000";
   userToken: string | null = null;
-  currentUser = signal<LocalMemoryUser | null>(null);
+  currentUser = signal<string | null>(null);
   private router = inject(Router);
 
 
@@ -69,25 +68,25 @@ export class AuthService {
      //estic rebent info perillosa (password y email) que no necessito, tot i que la password sigui hasheada, ideal fer canvi a nomes username i favorites
     this.http.get<User>(`${this.url}/user/me`, { headers })
       .subscribe({
-        next: user => this.currentUser.set(user),
+        next: user => this.currentUser.set(user.username),
         error: () => this.logout() // fa logout si token ha expriat
       });
   }
 
 
 
-  postFavorite(articleId: number): Observable<{message: string}> {
+  postFavorite(articleId: string): Observable<{message: string}> {
     const headers = new HttpHeaders({
         Authorization: `Bearer ${this.userToken || ''}`
     });
-    return this.http.put<{ message: string }>(`${this.url}/user/addfavorite/${this.currentUser()!.username}`, {articleId}, { headers });
+    return this.http.put<{ message: string }>(`${this.url}/user/addfavorite/${this.currentUser()}`, {articleId}, { headers });
     }
 
 
 
     //borrar favorit
-  removeFav(articleId: number): Observable<{message: string}> {
-    const username = this.currentUser()?.username;
+  removeFav(articleId: string): Observable<{message: string}> {
+    const username = this.currentUser;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.userToken || ''}`
@@ -102,12 +101,12 @@ export class AuthService {
   }
 
 
-  isFavorite(articleId: number): Observable<boolean>{
+  isFavorite(articleId: string): Observable<boolean>{
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.userToken || ''}`
     });
     const params = {articleId: articleId.toString()}; //params = query string --> isfavorite/pol?articleId=2
-    return this.http.get<boolean>(`${this.url}/user/isfavorite/${this.currentUser()!.username}`, {headers, params} );
+    return this.http.get<boolean>(`${this.url}/user/isfavorite/${this.currentUser}`, {headers, params} );
     /*
       EN UN GET -> PARAMS I QUERY                           GET Y DELETE
       EN UN POST -> PARAMS, BODY I FINS A 1 ALTRE DADA      POST PUT Y PATCH

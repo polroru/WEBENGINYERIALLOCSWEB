@@ -31,13 +31,13 @@ export class Articleslist {
 
       // Si nomes hi ha 1 artilcle
       if (articlesArray.length === 1 && this.title == articlesArray[0].title) {
-        const articleId = articlesArray[0].id;
+        const articleId = articlesArray[0]._id;
         this.router.navigate(['/articles/search/expand', articleId]);
       }
     });
   }
 
-   openArticle(id: Number){
+   openArticle(id: string){
     this.router.navigate(['/articles/search/expand', id]);
   }
 }
