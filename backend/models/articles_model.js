@@ -9,13 +9,13 @@ const articleSchema = new mongodbInstance.Schema({
 }, { timestamps: true });
 
 
-export const articleMongooseModel = mongodbInstance.model('Article', articleSchema);
+export const articleMongooseModel = mongodbInstance.model('Article', articleSchema); //'Article --> nom del model'
 
 
   export async function getRandomDBArticles() {
     //agregate es una funcio "pipeline" --> cadena de operacions que mongoDB s'executen succesivament
     const articles = await articleMongooseModel.aggregate([ {$sample : {size: 10} }]); //agafem 10 articles a l'atzar
-    return articles
+    return articles;
   }
 
 
@@ -49,7 +49,7 @@ export async function addDBArticle(article, username) {
 
 export async function editDBArticle(article, username) {
   const updated = await articleMongooseModel.findOneAndUpdate(
-    { id: new ObjectId(article.id) },
+    { _id: new ObjectId(article.id) },
     { title: article.title,
       content: article.content,
       actualitzatBy: username
