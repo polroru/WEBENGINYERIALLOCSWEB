@@ -1,6 +1,6 @@
 <div class="header">
   <div class="left">
-    <button class="btn-accion" (click)="onSubmit()">Create</button>
+    <button class="btn-accion" [hidden]="!authService.isLoggedIn()" (click)="onSubmit()">Create</button>
   </div>
 
   <h1 [routerLink]="['/']" class="logo">WIKIPOL</h1>

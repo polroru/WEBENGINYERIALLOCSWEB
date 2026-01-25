@@ -20,7 +20,7 @@ export class Articles {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private articlesService = inject(ArticlesService);
-  private authService = inject(AuthService);
+  protected authService = inject(AuthService);
   protected article = signal<Article | null>(null); // inicializado, signal es una variable reactica, es decir, que notifica de los cambios
   protected isFav = signal<boolean>(false); // per defecte es no fav, pero no te res a veure
 
@@ -46,6 +46,7 @@ export class Articles {
       this.router.navigate(['/articles/search', this.article()!.title.toLowerCase(), 'edit', this.article()!._id]);
     }else{
       console.log("Inicia sesió");
+      this.router.navigate(['/sign-in']);
     }
   }
 

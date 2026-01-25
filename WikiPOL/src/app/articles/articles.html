@@ -14,9 +14,9 @@
     </div>
   }
 
-  <button type="submit" (click)="onSubmit()">Editar</button>
+  <button type="submit" [hidden]="!authService.isLoggedIn()" (click)="onSubmit()">Editar</button>
 
-  <button type="button" (click)="afegirFav()"
+  <button type="button" [hidden]="!authService.isLoggedIn()" (click)="afegirFav()"
         [style.background-color]="isFav() ? 'yellow' : '#007bff'">
   Favorit
 </button>
