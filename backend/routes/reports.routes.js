@@ -1,5 +1,6 @@
 import express from 'express';
 import { validateUser } from '../middleware/validate_user.js';
+import {getReportsPaginacio, getReport, addNewReport, solveReport} from '../controllers/reports.controller.js';
 
 export const reportsRouter = express.Router();
 
@@ -7,16 +8,16 @@ export const reportsRouter = express.Router();
 
 //primer el /all per a no interferir amb id
 
-usersRouter.get('/all', validateUser, getAllReports);
+reportsRouter.get('/all', getReportsPaginacio);
 
-usersRouter.get('/:id', validateUser, getReport);
+reportsRouter.get('/:id', getReport);
 
 
 //post per afegir report
-usersRouter.post('/addreport', validateUser, addNewReport);
+reportsRouter.post('/addreport', addNewReport);
 
 //patch per modificar report
-usersRouter.patch('/solveReport', solveReport);
+reportsRouter.patch('/solvereport/:id', solveReport);
 
 
 

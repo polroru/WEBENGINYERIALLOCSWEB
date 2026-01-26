@@ -52,17 +52,19 @@ export async function getAllDBReports(page, limit) {
     //contem el total de reports que hi han
   const total = await reportMongooseModel.countDocuments();
 
+    //retorno el total de documents que hi han, la pagina actual, el limit agafat i l'array de reports
+    //aquesta info per donar info al usuari que utilitza el frontend
   return { total, page, limit, reports };
 }
 
 //add report
 
-export async function addNewDBReport(report) {
+export async function addNewDBReport(report, username) {
  
   const newReport = new reportMongooseModel({
     articleId: report.articleId,
     comment: report.comment || '',    // pot estar buit
-    creatBy: report.creatBy,          
+    creatBy: username,          
   });
 
   await newReport.save();
@@ -71,20 +73,26 @@ export async function addNewDBReport(report) {
 
 //editar estat de report
 
-export async function solveDBReport(report){
-  const updated = await reportMongooseModel.findOneAndUpdate(
-    {_id: new ObjectId(report.id)},
-    {
-      state: report.state
-    },
-    { new: true }
-  );
-  console.log("Report editat");
-  return{
-    ...updated.toObject(), //... --> spread operator, per copiar porpietats objecte
-    _id: updated._id.toString() // edito el camp _id per a que sigui String (frontend es string)
-  }
+export async function solveDBReport(reportId) {
+  
+    //fem un findOneAndUpdate, busquem el report id i mitjançant $ne (not equal) tambe filtrem per si esta en l'estat solved
+    //en cas de no estar en estat solved (not equal), aquest actualitza a solved
+    //tot aixo en una sola query
 
+  const updated = await reportMongooseModel.findOneAndUpdate(
+    { _id: new ObjectId(reportId), state: { $ne: 'solved' } },
+    { state: 'solved' },
+    { new: true } //retorno objecte nou
+  );
+
+  // en cas de no exisitir o ja estar solved
+  if (!updated) return false;
+
+  console.log("Report editat");
+  return {
+    ...updated.toObject(),
+    _id: updated._id.toString()
+  };
 }
 
 
