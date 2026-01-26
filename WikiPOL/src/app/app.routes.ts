@@ -32,17 +32,27 @@ export const routes: Routes = [
       {
         path: 'search/:title',
         loadComponent: () => import('./articleslist/articleslist').then(m => m.Articleslist),
-        title: 'Article'
+        title: 'Search'
       },
       {
         path: 'search/expand/:id',
         loadComponent: () => import('./articles/articles').then(m => m.Articles),
-        title: 'Article'
+        title: 'Expand'
       },
       {//en aquest cas decideixo agafar el username de la sessió activa
       path:'fav',
       loadComponent: () => import('./fav/fav').then(m => m.Fav),
       title: 'Favorite'
+      }
+    ]
+  },
+  {
+    path: 'reports',
+    children: [
+      {
+        path:'create',
+        loadComponent: () => console.log("Hola"),//hago el import aqui
+        title: "Report create"
       }
     ]
   }

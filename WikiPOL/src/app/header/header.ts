@@ -29,4 +29,17 @@ export class Header {
       this.router.navigate(['/articles/fav']);
     }
   }
+
+
+    //FALTA COMPROVAR QUE L'USUARI ES ADMIN
+
+  onSubmitReport(){
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/sign-in']); // redirigx al login
+    }else{
+      this.router.navigate(['/articles/fav']);
+    }
+  }
+
+
 }
