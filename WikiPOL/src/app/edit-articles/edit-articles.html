@@ -1,10 +1,10 @@
-<div>
+<div class="form-container">
   <form [formGroup]="editArticleForm" (ngSubmit)="save()">
 
-    <label for="title">Tittle:</label>
+    <label for="title">Títol:</label>
     <input id="title" type="text" formControlName="title" />
 
-    <label for="content">Content:</label>
+    <label for="content">Contingut:</label>
     <textarea
       id="content"
       class="content-box"

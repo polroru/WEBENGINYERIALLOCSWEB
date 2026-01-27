@@ -1,0 +1,30 @@
+<div class="report-detail">
+  <!-- Títol del article (centrat) -->
+  <h1>{{ report()?.articleTitle }}</h1>
+
+  <!-- Comentari del report (alineat a l'esquerra) -->
+  <p class="report-comment">
+    <span>Comentari:</span> {{ report()?.comment }}
+  </p>
+
+  <!-- Metadades -->
+  <div class="report-meta">
+    <span>ID report: {{ report()?._id }}</span>
+    <span>ID article: {{ report()?.articleId }}</span>
+    <span>Creat per: {{ report()?.creatBy }}</span>
+  </div>
+
+  <!-- Botó per eliminar report (si no està solucionat) -->
+  <button 
+    type="button" 
+    (click)="onSubmit()" 
+    *ngIf="report()?.state !== 'solved'"
+  >
+    Eliminar article
+  </button>
+
+  <!-- Missatge de report solucionat -->
+  <span class="resolved-message" *ngIf="report()?.state === 'solved'">
+    Report solucionat
+  </span>
+</div>

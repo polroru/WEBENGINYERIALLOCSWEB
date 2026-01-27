@@ -3,13 +3,18 @@ form {
   flex-direction: column;
   gap: 16px;
   max-width: 850px;
-  margin: 0 auto;
+  margin: 2rem auto; /* espai superior com els articles */
+  padding: 1.5rem 2rem;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 label {
   font-weight: bold;
   margin-bottom: 4px;
   font-size: 1rem;
+  color: #333;
 }
 
 input,
@@ -21,16 +26,41 @@ input,
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9;
 }
 
 input:focus,
 .content-box:focus {
   border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
   outline: none;
 }
 
 .content-box {
   height: 140px;
   resize: vertical;
+}
+
+button[type="submit"] {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  align-self: flex-start;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.Sucess {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
 }

@@ -1,3 +1,4 @@
+/* HEADER */
 .header {
   display: flex;
   align-items: center;
@@ -34,6 +35,7 @@
   gap: 10px;
 }
 
+/* BOTONES PRINCIPALES */
 .btn-accion {
   padding: 8px 16px;
   background: #007bff;
@@ -47,13 +49,37 @@
   background: #0056b3;
 }
 
+/* BOTONES MULTITASK */
 .btn-multitask {
   padding: 8px 16px;
-  background: #e0e0e0;
-  color: #333;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Favorits azul */
+.btn-fav {
+  background: #007bff;
+}
+
+.btn-fav:hover {
+  background: #0056b3;
+}
+
+/* Reports rojo */
+.btn-report {
+  background: #dc3545;
+}
+
+.btn-report:hover {
+  background: #a71d2a;
+}
+
+/* Logout gris */
+.btn-logout {
+  background: #e0e0e0;
+  color: #333;
 }
 
 .btn-logout:hover {

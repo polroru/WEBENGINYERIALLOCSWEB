@@ -1,0 +1,37 @@
+<h1>Reports</h1>
+
+<p class="total-reports">
+  Reports trobats: {{ total }}
+</p>
+
+<div class="reports-container">
+  @for (report of reports(); track report._id) {
+    <div
+      class="report-card"
+      (click)="openArticle(report._id)"
+    >
+      <h2>{{ report.articleTitle }}</h2>
+      <p>{{ report.comment }}</p>
+      <small>Creat per: {{ report.creatBy }}</small>
+    </div>
+  }
+</div>
+
+<!-- PAGINACIÓ -->
+<div class="pagination">
+  <button
+    (click)="prevPage()"
+    [disabled]="page === 1"
+  >
+    ⬅ Anterior
+  </button>
+
+  <span>Pàgina {{ page }}</span>
+
+  <button
+    (click)="nextPage()"
+    [disabled]="page * limit >= total"
+  >
+    Següent ➡
+  </button>
+</div>

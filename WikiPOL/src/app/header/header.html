@@ -1,20 +1,20 @@
 <div class="header">
   <div class="left">
-    <button class="btn-accion" [hidden]="!authService.isLoggedIn()" (click)="onSubmit()">Create</button>
+    <button class="btn-accion" *ngIf="authService.isLoggedIn()" (click)="onSubmit()">Create</button>
   </div>
 
   <h1 [routerLink]="['/']" class="logo">WIKIPOL</h1>
 
   <div class="right">
-<span class="username" [hidden]="!authService.isLoggedIn()">
+<span class="username" *ngIf="authService.isLoggedIn()">
   {{ authService.currentUser() }}
 </span>
 
-    <button class="btn-accion" [routerLink]="['/sign-in']" [hidden]="authService.isLoggedIn()">Sign In</button>
-    <button class="btn-accion" [routerLink]="['/sign-up']" [hidden]="authService.isLoggedIn()">Sign Up</button>
-    <button class="btn-multitask" (click)="authService.logout()" [hidden]="!authService.isLoggedIn()">Logout</button>
-    <button class="btn-multitask" (click)="onSubmitFav()" [hidden]="!authService.isLoggedIn()">Favorits</button>
-    <button class="btn-multitask" (click)="onSubmitReport()" >Reports</button>
+    <button class="btn-accion" [routerLink]="['/sign-in']" *ngIf="!authService.isLoggedIn()">Sign In</button>
+    <button class="btn-accion" [routerLink]="['/sign-up']" *ngIf="!authService.isLoggedIn()">Sign Up</button>
+    <button class="btn-multitask btn-fav" (click)="onSubmitFav()" *ngIf="authService.isLoggedIn()">Favorits</button>
+    <button class="btn-multitask btn-report" (click)="onSubmitReport()" *ngIf="authService.isLoggedIn()">Reports</button>
+    <button class="btn-multitask btn-logout" (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</button>
 
   </div>
 </div>

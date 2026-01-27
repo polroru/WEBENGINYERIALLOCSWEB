@@ -15,7 +15,7 @@ import { AuthService } from '../services/authservice';
 export class AddArticles {
 
   private articlesService = inject(ArticlesService);
-  succes = false;
+  protected succes = false;
   private authService = inject(AuthService);
 
 

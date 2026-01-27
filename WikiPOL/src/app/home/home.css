@@ -1,37 +1,49 @@
-/* Título centrado */
+/* Títol centrat */
 h1 {
   text-align: center;
   margin: 2rem 0 1rem 0;
 }
 
-/* Contenedor centrado con espacio igual a ambos lados */
+/* Contenidor centrat amb espai igual als costats */
 .articles-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 1500px;  /* ancho máximo */
-  margin: 0 auto;     /* centrado horizontal */
-  padding: 0 2rem;    /* espacio igual a izquierda y derecha */
+  max-width: 1500px;  /* amplada màxima */
+  margin: 0 auto;      /* centrat horitzontal */
+  padding: 0 2rem;     /* espai igual a esquerra i dreta */
 }
 
-/* Tarjetas ocupando casi todo el ancho del contenedor */
+/* Targetes ocupant gairebé tot l'amplada del contenidor */
 .article-card {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
-  width: 100%;        /* ocupa todo el ancho disponible dentro del contenedor */
+  width: 100%;          /* ocupa tot l'espai disponible */
   overflow: hidden;
+  cursor: pointer;      /* cursor de mà */
+  transition: all 0.2s ease; /* per efecte hover */
 }
 
+/* Efecte hover: canvi suau de fons i ombra */
+.article-card:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
+/* Estils del títol dins la targeta */
 .article-card h2 {
   margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
+/* Estils del contingut dins la targeta */
 .article-card p {
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #555;
 }

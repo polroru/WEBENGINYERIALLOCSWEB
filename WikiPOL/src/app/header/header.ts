@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/authservice';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   imports: [
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
@@ -37,7 +39,7 @@ export class Header {
     if(!this.authService.isLoggedIn()){
       this.router.navigate(['/sign-in']); // redirigx al login
     }else{
-      this.router.navigate(['/articles/fav']);
+      this.router.navigate(['/reports']);
     }
   }
 

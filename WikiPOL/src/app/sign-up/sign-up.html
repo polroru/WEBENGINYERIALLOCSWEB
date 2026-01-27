@@ -10,7 +10,7 @@
       placeholder="username"
       [class.invalid]="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched"
     >
-    <span class="error">Introdueix nom d'usuari (minim 3 caracteres)</span>
+    <span class="error">Introdueix nom d'usuari (mínim 3 caràcters)</span>
 
     <label for="email">Correu electrònic</label>
     <input
@@ -29,12 +29,12 @@
       formControlName="password"
       [class.invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
     >
-    <span class="error">Contrasenya ha de tindre 6 caràcters</span>
+    <span class="error">Contrasenya ha de tenir mínim 6 caràcters</span>
 
-    <button type="submit">Registrarse</button>
+    <button type="submit">Registrar-se</button>
 
     <p class="signin-link">
-      Ja ets usuari? <a routerLink="/sign-in">Inicia sessió</a>
+      Ja ets usuari? <a [routerLink]="['/sign-in']">Inicia sessió</a>
     </p>
   </form>
 </div>

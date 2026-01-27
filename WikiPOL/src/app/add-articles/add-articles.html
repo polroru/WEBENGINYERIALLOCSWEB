@@ -1,16 +1,14 @@
-<form [formGroup]="articleForm">
+<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
 
-  <label for="title">Title:</label>
+  <label for="title">Títol:</label>
   <input id="title" formControlName="title" />
 
-  <label for="content">Content:</label>
+  <label for="content">Contingut:</label>
   <textarea id="content" formControlName="content" class="content-box"></textarea>
 
-  <button type="submit" (click)="onSubmit()">Afegir article</button>
+  <button type="submit">Afegir article</button>
 </form>
 
 @if (succes) {
   <p class="Sucess">Article afegit!</p>
 }
-
-

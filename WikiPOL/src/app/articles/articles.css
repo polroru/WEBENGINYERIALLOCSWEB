@@ -1,59 +1,144 @@
-/* articles.css */
-
 /* Contenedor general del artículo */
 .article-detail {
-  max-width: 1200px;   /* ancho máximo */
-  margin: 2rem auto;   /* centrado horizontal y margen arriba */
-  padding: 1rem 2rem;  /* padding interno */
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Título del artículo */
+/* Título y contenido */
 .article-detail h1 {
   font-size: 2rem;
   font-weight: bold;
-  text-align: center;  /* título centrado */
+  text-align: center;
   margin: 0;
 }
 
-/* Contenido del artículo */
 .article-detail p {
   font-size: 1rem;
   line-height: 1.6;
   color: #333;
-  word-wrap: break-word; /* que no se desborde */
   margin: 0;
 }
 
-/* Enlace de editar artículo */
-.article-detail a {
-  align-self: flex-start;  /* se alinea a la izquierda */
-  text-decoration: none;
-  color: #ffffff;
-  background-color: #007bff;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+.article-meta span {
+  font-size: 0.9rem;
+  color: #666;
+  margin-right: 0.5rem;
 }
 
-.article-detail a:hover {
-  background-color: #0056b3;
+/* GRUPO DE BOTONES */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-
-
-button {
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+/* Botones generales */
+.button-group button,
+.new-report-box button {
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
   border: none;
-  color: #000; /* texto negro para amarillo */
   cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  opacity: 0.8;
+/* Editar */
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+.edit-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+.edit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
+/* Favorito */
+.fav-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.fav-btn.fav-active {
+  background-color: #ffc107;
+  color: #000;
+}
+.fav-btn:hover:not(.fav-active) {
+  background-color: #d6d6d6;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+.fav-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Reportar */
+.report-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.report-btn:hover {
+  background-color: #a71d2a;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+.report-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* AREA DE REPORT */
+.new-report-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+/* Textarea */
+.new-report-box textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-size: 0.95rem;
+}
+
+/* Botón Enviar Report */
+.new-report-box button {
+  align-self: flex-end;
+  background-color: #17a2b8; /* azul info */
+  color: white;
+}
+.new-report-box button:hover {
+  background-color: #117a8b;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+.new-report-box button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Mensaje de éxito */
+.success-msg {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}

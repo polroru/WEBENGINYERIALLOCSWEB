@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
     path: '',
-    loadComponent: () => import('./home/home').then(m => m.Home),
+    loadComponent: () => import('./home/home').then(m => m.Home), //posem el nom de la classe
     title: 'Home'
   },
   {
@@ -50,10 +50,21 @@ export const routes: Routes = [
     path: 'reports',
     children: [
       {
+        path:'',
+        loadComponent: () => import('./report-list/report-list').then(m => m.ReportList),
+        title: "Reports"
+      },
+      {
         path:'create',
-        loadComponent: () => console.log("Hola"),//hago el import aqui
+        loadComponent: () => import('./add-report/add-report').then(m => m.AddReport),
         title: "Report create"
-      }
+      },
+      {
+        path:'expand/:id',
+        loadComponent: () => import('./reports/reports').then(m => m.Reports),
+        title: "Report"
+      },
+
     ]
   }
 ]

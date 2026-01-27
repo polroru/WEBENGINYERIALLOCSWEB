@@ -32,21 +32,19 @@ export class EditArticles {
     })
   })
 
-  constructor() {
-    let id;
-    this.route.params.subscribe(params => {
-      id = params['id'];
+constructor() {
+  const id = this.route.snapshot.params['id'];
 
-      this.articlesService.getArticleById(id).subscribe(article => {
-        this.article = article;
+  this.articlesService.getArticleById(id).subscribe(article => {
+    this.article = article;
 
-        this.editArticleForm.patchValue({
-          title: article.title,
-          content: article.content
-        });
-      });
+    this.editArticleForm.patchValue({
+      title: article.title,
+      content: article.content
     });
-  }
+  });
+}
+
 
 
 

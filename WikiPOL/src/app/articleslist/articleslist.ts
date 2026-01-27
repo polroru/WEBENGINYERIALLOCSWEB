@@ -11,6 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Articleslist {
 
+    //AQUESTA ES LA LLISTA D'ARTICLES QUE ES MOSTRA AL BUSCAR AL SEARCHER
+    //LA LLISTA DE RANDOMS ES MOSTRA AL HOME
+
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private articlesService = inject(ArticlesService);
@@ -19,10 +22,8 @@ export class Articleslist {
   title: string = '';
 
   constructor() {
-    this.route.params.subscribe(params => {
-      this.title = params['title'];
-      this.loadArticles(this.title);
-    });
+    this.title = this.route.snapshot.params['title'];
+    this.loadArticles(this.title);
   }
 
   loadArticles(title: string) {

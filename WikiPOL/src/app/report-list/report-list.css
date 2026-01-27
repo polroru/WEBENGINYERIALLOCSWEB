@@ -1,0 +1,74 @@
+/* Título */
+h1 {
+  text-align: center;
+  margin: 2rem 0 0.5rem 0;
+}
+
+/* Total */
+.total-reports {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+/* Contenedor */
+.reports-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Tarjeta */
+.report-card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.report-card:hover {
+  background-color: #ececec;
+}
+
+.report-card h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.report-card p {
+  margin: 0 0 0.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-card small {
+  color: #666;
+}
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}

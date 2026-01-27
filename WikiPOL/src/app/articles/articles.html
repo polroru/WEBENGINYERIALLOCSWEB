@@ -3,7 +3,7 @@
   <p>{{ article()?.content }}</p>
 
   <div class="article-meta">
-    <span>Creat per: {{ article()?.creatBy }} </span>
+    <span>Creat per: {{ article()?.creatBy }}</span>
     <span>({{ article()?.createdAt | date:'short' }})</span>
   </div>
 
@@ -14,13 +14,49 @@
     </div>
   }
 
-  <button type="submit" [hidden]="!authService.isLoggedIn()" (click)="onSubmit()">Editar</button>
+  <!-- BOTONS PRINCIPALS -->
+  <div class="button-group">
+    <button
+      class="edit-btn"
+      *ngIf="authService.isLoggedIn()"
+      [disabled]="!authService.isLoggedIn()"
+      (click)="onSubmit()"
+    >
+      Editar
+    </button>
 
-  <button type="button" [hidden]="!authService.isLoggedIn()" (click)="afegirFav()"
-        [style.background-color]="isFav() ? 'yellow' : '#007bff'">
-  Favorit
-</button>
 
+      <!--amb ngIf no es carrega el boto fins que no es compleixi la condicio -->
+    <button
+      class="fav-btn"
+      *ngIf="authService.isLoggedIn()" 
+      [disabled]="!authService.isLoggedIn()"
+      (click)="afegirFav()"
+      [class.fav-active]="isFav()"
+    >
+      ★ Guardar
+    </button>
 
+    <button
+      class="report-btn"
+      *ngIf="authService.isLoggedIn()"
+      (click)="showReport = !showReport"
+    >
+      Reportar
+    </button>
+  </div>
 
+  <!-- ÀREA DE REPORT -->
+  <div class="new-report-box" *ngIf="showReport">
+    <textarea
+      id="newReportText"
+      placeholder="Escriu aquí el teu report"
+      [(ngModel)]="reportText"
+    ></textarea>
+    <button type="button" (click)="crearReport()">Enviar Report</button>
+  </div>
+
+  <span class="success-msg" *ngIf="success">
+    Report creat correctament
+  </span>
 </div>
