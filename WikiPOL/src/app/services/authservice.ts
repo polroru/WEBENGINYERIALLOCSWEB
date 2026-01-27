@@ -75,15 +75,14 @@ export class AuthService {
     const headers = new HttpHeaders({
         Authorization: `Bearer ${this.userToken || ''}`
     });
-    return this.http.put<{ message: string }>(`${this.url}/user/addfavorite/${this.currentUser()}`, {articleId}, { headers });
+    return this.http.put<{ message: string }>(`${this.url}/user/addfavorite/${this.currentUser()!.username}`, {articleId}, { headers });
     }
 
 
 
     //borrar favorit
   removeFav(articleId: string): Observable<{message: string}> {
-    const username = this.currentUser();
-
+    const username = this.currentUser()!.username; //agafem username del usuari actual
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.userToken || ''}`
     });

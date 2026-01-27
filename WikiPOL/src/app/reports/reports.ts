@@ -35,8 +35,8 @@ export class Reports {
     this.reportsService.getReport(id).subscribe({
       next: report => {
         this.report.set(report);
-        this.solved.set(report.state === 'solved');
-        this.loading.set(false); // ha carregat
+        this.solved.set(report.state === 'solved'); //mirem si esta solved o no
+        this.loading.set(false); // si carrega correctament es cambia estat a false (no carregar)
       },
       error: () => {
         this.report.set(null);
@@ -47,22 +47,23 @@ export class Reports {
 
 
 
-
-
+    //aquesta funcio, comunica amb el backend, si es decideix eliminar article, fa solved de totes les peticions per eliminar un article, en cas contrari, no elimina
+    //funcio quan premem boto, aquest permet enviar un string (es tracta com boolean)
   onSolve(deleteArticle: boolean) {
-    if (!this.authService.isLoggedIn()) {
+      //sign in si no esta logged in
+    if (!this.authService.isLoggedIn() || this.authService.currentUser()?.rol !== 'admin') { //en cas de no estar logejat i ser admin
       this.router.navigate(['/sign-in']);
       return;
     }
 
-    const currentReport = this.report();
-    if (!currentReport || currentReport.state === 'solved') return;
+    const currentReport = this.report(); //s'agafa el report
+    if (!currentReport || currentReport.state === 'solved') return; //es comprova que no estigui buit o que no estigui solucionat (solved)
 
-    // pasamos el query ?delete=true/false al backend
+      //enviem el id del report i si es vol eliminar o no
     this.reportsService.solveReport(currentReport._id, deleteArticle).subscribe({
       next: updatedReport => {
-        this.report.set(updatedReport);
-        this.solved.set(true);
+        this.report.set(updatedReport); //agafem la solucio del report
+        this.solved.set(true); //posem que ja esta solved
         console.log('Report solucionat!');
       },
       error: err => console.error('Error al resoldre el report:', err)

@@ -77,36 +77,34 @@ export class Articles {
       this.router.navigate(['/sign-in']); // redirigeix al login
       return;
     }
-
+      //amb id podem veure si es un favorit
     const articleId = this.article()!._id;
     this.authService.isFavorite(articleId).subscribe(currentFav => {
       if (currentFav) {
-        this.authService.removeFav(articleId).subscribe(() => this.isFav.set(false));
+        this.authService.removeFav(articleId).subscribe(() => this.isFav.set(false)); //si ho es, ho borra de favorit
       } else {
-        this.authService.postFavorite(articleId).subscribe(() => this.isFav.set(true));
+        this.authService.postFavorite(articleId).subscribe(() => this.isFav.set(true)); //si no ho es, ho afegeix
       }
     });
   }
 
-  // Funció per crear un nou report
+    // Funció per crear un nou report
   crearReport() {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/sign-in']);
       return;
     }
-
-    const textarea = document.getElementById('newReportText') as HTMLTextAreaElement;
-    if (!textarea || !textarea.value.trim()) return;
+      //agafem el valor del comentari del report i el guardem
+    const comment = document.getElementById('newReportText') as HTMLTextAreaElement;
+      //controlem que no estigui buit o amb espais
+    if (!comment || !comment.value.trim()) return;
 
     const article = this.article();
     if (!article) return;
 
-    this.reportsService.addNewReport({
-      articleId: article._id,
-      articleTitle: article.title,
-      comment: textarea.value
-    }).subscribe(() => {
-      textarea.value = '';
+      //enviem tot el necessari per fer el report (una part del objecte report (partial))
+    this.reportsService.addNewReport({articleId: article._id, articleTitle: article.title,comment: comment.value}).subscribe(() => {
+      comment.value = ''; //reset de el valor del comentari a la pagina
       this.success = true; // mostrem missatge
       console.log('Nou report creat!');
     });

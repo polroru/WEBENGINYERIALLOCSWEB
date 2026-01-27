@@ -22,7 +22,7 @@
       <span>Creat per: {{ report()?.creatBy }}</span>
     </div>
 
-    <!-- Botons per resoldre el report només si NO està resolt -->
+    <!-- Botons per resoldre el report només si no està resolt -->
     <div class="report-buttons" *ngIf="report()?.state !== 'solved'">
       <!-- Botó verd: No eliminar article -->
       <button 

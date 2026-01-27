@@ -25,7 +25,7 @@ export class Header {
 
 
   onSubmitFav(){
-    if(!this.authService.isLoggedIn() && this.authService.currentUser()?.rol !== 'admin'){
+    if(!this.authService.isLoggedIn()){
       this.router.navigate(['/sign-in']); // redirigx al login
     }else{
       this.router.navigate(['/articles/fav']);
@@ -33,10 +33,8 @@ export class Header {
   }
 
 
-    //FALTA COMPROVAR QUE L'USUARI ES ADMIN
-
   onSubmitReport(){
-    if(!this.authService.isLoggedIn()){
+    if(!this.authService.isLoggedIn() || this.authService.currentUser()?.rol !== 'admin'){ //en cas de no estar logged i/o ser admin
       this.router.navigate(['/sign-in']); // redirigx al login
     }else{
       this.router.navigate(['/reports']);

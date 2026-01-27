@@ -38,20 +38,18 @@ export class ReportList {
     });
   }
 
+    //funcio per passar de pagina ( en cas de que no estiguem al limit )
   nextPage() {
-    if (this.page * this.limit >= this.total) return;
+    if (this.page * this.limit >= this.total) return; //en el cas de que ja no hi hagui mes reports per comprovar, no deixa augmentar pagina (pagina * nºreports per pagina >=  reports totals)
     this.page++;
     this.loadReports();
   }
-
+    //funcio per retrocedir pagina, en cas de ser 1 o menor, no deixa
   prevPage() {
-    if (this.page === 1) return;
+    if (this.page <= 1) return;
     this.page--;
     this.loadReports();
   }
-
-  trackById(index: number, report: Report) {
-    return report._id;
-  }
+   
 }
 
