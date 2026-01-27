@@ -1,6 +1,3 @@
-
-
-
 import jwt from 'jsonwebtoken';
 
 export const JWT_SECRET = "Cl4u$Secr3taLl@rg4I4l3at0ri@P3rJWT!2025#";

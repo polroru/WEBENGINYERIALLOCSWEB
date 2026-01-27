@@ -6,10 +6,13 @@ import { ObjectId } from 'mongodb';
 const userSchema = new mongodbInstance.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  rol: { type: String, enum: ['user', 'admin'], default: 'user' }, //rol admin i user
   password: { type: String, required: true },
   /*Llista de favs, amb  referencia a article amb el seu id, default es null*/
   favorites: [{ type: ObjectId, ref: 'Article' }]
 });
+
+
 
 export const User = mongodbInstance.model('User', userSchema);
 

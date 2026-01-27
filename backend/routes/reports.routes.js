@@ -1,5 +1,6 @@
 import express from 'express';
 import { validateUser } from '../middleware/validate_user.js';
+import { esAdmin } from '../middleware/es_admin.js';
 import {getReportsPaginacio, getReport, addNewReport, solveReport} from '../controllers/reports.controller.js';
 
 export const reportsRouter = express.Router();
@@ -8,16 +9,18 @@ export const reportsRouter = express.Router();
 
 //primer el /all per a no interferir amb id
 
-reportsRouter.get('/all', getReportsPaginacio);
+    //tots els reports
+reportsRouter.get('/all', validateUser, esAdmin, getReportsPaginacio);
 
-reportsRouter.get('/:id', validateUser, getReport);
+    //nomes un report
+reportsRouter.get('/:id', validateUser, esAdmin, getReport);
 
 
-//post per afegir report
-reportsRouter.post('/addreport', validateUser, addNewReport);
+    //post per afegir report
+reportsRouter.post('/addreport', validateUser, addNewReport); //no fa falta ser admin per fer un report
 
-//patch per modificar report
-reportsRouter.patch('/solvereport/:id', validateUser, solveReport);
+    //patch per modificar report
+reportsRouter.patch('/solvereport/:id', validateUser, esAdmin, solveReport);
 
 
 

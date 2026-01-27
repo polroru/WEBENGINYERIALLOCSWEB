@@ -48,14 +48,15 @@ export async function signUp(req, res) {
     //bcrypt despres compara la contrasenya (treu el "salt" directament de el hash final, despres agafa la contrasenya escrita, la hashea amb el "salt" i despres compara amb el hash final guardat)
 
 
-    //creem un token
-    const token = jwt.sign({ username: addedUser.username }, JWT_SECRET, { expiresIn: '1h' });
+    //creem un token i guardem el username i el rol, per poder comprovar al middleware
+    const token = jwt.sign({ username: addedUser.username, rol: addedUser.rol, email: addedUser.email }, JWT_SECRET, { expiresIn: '1h' });
 
     response = {
       estat: "SUCCESS",
       user: {
         username: addedUser.username,
-        email: addedUser.email
+        email: addedUser.email,
+        rol: addedUser.rol
       },
       token
 };
@@ -126,12 +127,14 @@ export async function signIn(req, res) {
           message: "Contrasenya incorrecta"
         };
       }else{
-        const token = jwt.sign({ username: userData.username }, JWT_SECRET, { expiresIn: '1h' });
+          //guardo la informacio del username i el rol dins del token, d'aquesta manera puc comprovar al middleware
+        const token = jwt.sign({ username: userData.username, rol: userData.rol, email: userData.email }, JWT_SECRET, { expiresIn: '1h' });
         response = {
           estat: "SUCCESS",
           user: {
             username: userData.username,
-            email: email
+            email: email,
+            rol: userData.rol
           },
           token
         };
@@ -147,6 +150,7 @@ export function infoUsuari(req, res) {
   // req.user viene del jwt.verify
   res.json({
     username: req.user.username,
+    rol: req.user.rol
   });
 }
 

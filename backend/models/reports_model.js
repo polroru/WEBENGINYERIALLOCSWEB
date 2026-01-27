@@ -85,9 +85,9 @@ export async function addNewDBReport(report, username) {
   return newReport;
 }
 
-//editar estat de report
+//editar estat de report, per a que tots els reports amb id d'un article que s'elimini, estiguin com a resolts
 
-export async function solveDBReport(reportId) {
+export async function solveDBReport(reportId, deleteArticle) {
   
     //fem un findOneAndUpdate, busquem el report id i mitjançant $ne (not equal) tambe filtrem per si esta en l'estat solved
     //en cas de no estar en estat solved (not equal), aquest actualitza a solved
@@ -102,8 +102,18 @@ export async function solveDBReport(reportId) {
   // en cas de no exisitir o ja estar solved
   if (!updated) return false;
 
-    //aquesta funcio elimina de la base de dades (fica en "ocult") i despres si que elimina de favs de la gent
-  await deleteDBArticle(updated.articleId);
+    //en el cas de voler fer delete de l'article (tambe es fa solved a totes les demes request)
+  if(deleteArticle){
+      //aquesta funcio elimina de la base de dades (fica en "ocult") i despres si que elimina de favs de la gent
+    await deleteDBArticle(updated.articleId);
+
+        //d'aquesta manera el que faig es marcar tots els requests amb el id de l'article com solved (updateMany)
+    await reportMongooseModel.updateMany(
+      { articleId: updated.articleId, state: { $ne: 'solved' } },
+      { state: 'solved' }
+    );
+  }
+
 
   console.log("Report editat");
   return {

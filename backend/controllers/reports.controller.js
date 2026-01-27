@@ -51,11 +51,16 @@ export async function solveReport(req, res) {
   if (!reportId) {
     return res.status(400).json({ error: 'Falta el id del report.' });
   }
-    const updatedReport = await solveDBReport(reportId);
+      //rebem tambe el boolean per si volem fer delete (tot el que no sigui true, es false)
+    const deleteArticle = req.query.delete === 'true';
+      //funcio per solucionar l'estat 
+    const updatedReport = await solveDBReport(reportId, deleteArticle);
 
   if (!updatedReport) {
     return res.status(404).json({ error: 'Article no trobat o ja resolt' });
   }
+
+  
 
   res.status(200).json(updatedReport);
 }
