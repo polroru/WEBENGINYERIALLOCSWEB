@@ -55,11 +55,6 @@ export const routes: Routes = [
         title: "Reports"
       },
       {
-        path:'create',
-        loadComponent: () => import('./add-report/add-report').then(m => m.AddReport),
-        title: "Report create"
-      },
-      {
         path:'expand/:id',
         loadComponent: () => import('./reports/reports').then(m => m.Reports),
         title: "Report"
