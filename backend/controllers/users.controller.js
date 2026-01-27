@@ -48,6 +48,12 @@ export async function signUp(req, res) {
     //bcrypt despres compara la contrasenya (treu el "salt" directament de el hash final, despres agafa la contrasenya escrita, la hashea amb el "salt" i despres compara amb el hash final guardat)
 
 
+    /*
+                                        TOKEN
+                                        
+      HEADER (ALGORITME I TIPUS) ------ PAYLOAD ------ FIRMA DIGITAL(SECRET KEY)
+    */
+
     //creem un token i guardem el username i el rol, per poder comprovar al middleware
     const token = jwt.sign({ username: addedUser.username, rol: addedUser.rol, email: addedUser.email }, JWT_SECRET, { expiresIn: '1h' });
 
@@ -128,6 +134,11 @@ export async function signIn(req, res) {
         };
       }else{
           //guardo la informacio del username i el rol dins del token, d'aquesta manera puc comprovar al middleware
+
+          /*
+                  TOKEN
+              HEADER (ALGORITME I TIPUS) ------ PAYLOAD ------ FIRMA DIGITAL(SECRET KEY)
+           */
         const token = jwt.sign({ username: userData.username, rol: userData.rol, email: userData.email }, JWT_SECRET, { expiresIn: '1h' });
         response = {
           estat: "SUCCESS",

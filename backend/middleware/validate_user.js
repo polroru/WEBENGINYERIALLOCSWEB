@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-export const JWT_SECRET = "Cl4u$Secr3taLl@rg4I4l3at0ri@P3rJWT!2025#";
+export const JWT_SECRET = "Cl4u$Secr3taLl@rg4I4l3at0ri@P3rJWT!2025#"; //idealment no hauria d'estar al codi per a que no es vegi a simple vista
 
 export function validateUser(req, res, next) {
-  const authHeader = req.headers['authorization']; //agafo el header on esta el token
-
+  //bearer (al frontend) es un separador, on "avisa" al backend que es el token
+  const authHeader = req.headers['authorization']; //agafo el token del valor del header on s'emmagatzema (authorization)
+  
   //comprovem si existeix el token, el separo del indicador i el guardo
   const token = authHeader && authHeader.split(' ')[1];
 
