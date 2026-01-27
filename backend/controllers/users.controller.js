@@ -36,14 +36,17 @@ export async function signUp(req, res) {
 
 
 
-// bcrypt genera una salt (valor aleatorio que se agrega a la password y luego se hashea) aleatoria cada vez que hace hash de la contraseña
-// el hash final incluye la salt y el número de rondas (el 10)
-// al comparar, bcrypt usa la salt del hash para verificar la contraseña
-// nunca se guarda la contraseña ni la salt por separado
-// cost factor indica cuántas rondas se aplican, más alto = más seguro pero más lento
+  // bcrypt genera una salt (valor aleatori que s'afegeix a la contrasenya i després es fa el hash) de manera aleatòria cada vegada que fa hash de la contrasenya
+  // el hash final inclou la salt i el nombre de rondes (el 10)
+  // en comparar, bcrypt usa la salt del hash per verificar la contrasenya
+  // mai es guarda la contrasenya ni la salt per separat
+  // el cost factor indica quantes rondes s'apliquen, més alt = més segur però més lent
 
+  // "Hasheem" la contrasenya usant bcrypt
+  // El número 10 és el cost factor: indica quantes rondes de hashing s'apliquen
+  // A més alt número, més segur, però més lent de generar
 
-    const passwordEncriptada = await bcrypt.hash(password, 10); //password hasheada, el 10 significa que es fan 10 "rondes" de hash
+    const passwordEncriptada = await bcrypt.hash(password, 10);
     const addedUser = await addDBUser({ username, email, password: passwordEncriptada });
     //bcrypt despres compara la contrasenya (treu el "salt" directament de el hash final, despres agafa la contrasenya escrita, la hashea amb el "salt" i despres compara amb el hash final guardat)
 
