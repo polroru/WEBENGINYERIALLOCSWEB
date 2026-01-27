@@ -10,14 +10,14 @@ export const reportsRouter = express.Router();
 
 reportsRouter.get('/all', getReportsPaginacio);
 
-reportsRouter.get('/:id', getReport);
+reportsRouter.get('/:id', validateUser, getReport);
 
 
 //post per afegir report
-reportsRouter.post('/addreport', addNewReport);
+reportsRouter.post('/addreport', validateUser, addNewReport);
 
 //patch per modificar report
-reportsRouter.patch('/solvereport/:id', solveReport);
+reportsRouter.patch('/solvereport/:id', validateUser, solveReport);
 
 
 

@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 const reportSchema = new mongodbInstance.Schema({
   articleId: String,
   comment: String,
+  articleTitle: String,
   creatBy: { type: String, required: true },
   state: {
     type: String,
@@ -47,10 +48,21 @@ export async function getAllDBReports(page, limit) {
       *limit(x) --> fins a x objecte
       *sort(x) --> ordenem per x norma, en aquest cas, per data de creació (de forma descendent) 
     */
+
   const reports = await reportMongooseModel.find().skip(skip).limit(limit).sort({ createdAt: -1 });
 
     //contem el total de reports que hi han
+
   const total = await reportMongooseModel.countDocuments();
+
+
+
+    // s'ha de convertir tots els ObjectId a strings
+
+  const reportsWithIdString = reports.map(report => ({
+    ...report.toObject(), // spread operator, per agafar tots els camps
+    _id: report._id.toString()
+  }));
 
     //retorno el total de documents que hi han, la pagina actual, el limit agafat i l'array de reports
     //aquesta info per donar info al usuari que utilitza el frontend
@@ -63,6 +75,7 @@ export async function addNewDBReport(report, username) {
  
   const newReport = new reportMongooseModel({
     articleId: report.articleId,
+    articleTitle: report.articleTitle,
     comment: report.comment || '',    // pot estar buit
     creatBy: username,          
   });

@@ -31,12 +31,12 @@ export async function getReport(req, res){
 
 export async function addNewReport(req, res) {
   const { reportData } = req.body; //desestructuro les dades
-  if(!reportData.articleId) {
+  if(!reportData.articleId || !reportData.articleTitle) {
     return res.status(400).json({ error: 'Falten dades.' });
   }
 
   console.log(reportData);
-  const username = req.user?.username || "test_user";
+  const username = req.user?.username;
   const addedReport = await addNewDBReport(reportData, username );
   res.status(201).json(addedReport);
 }
@@ -79,7 +79,7 @@ export async function solveReport(req, res) {
 export async function getReportsPaginacio(req, res) {
   const page = parseInt(req.query.page) || 1;   //s'envien al query en format string( per aixo el parseInt)
   const limit = parseInt(req.query.limit) || 10;
-
+  console.log("enviar paginacion");
     //comprovo que no siguin numeros negatius
   if (page < 1 || limit < 1) {
   return res.status(400).json({ message: "Page y limit deben ser positivos" });
