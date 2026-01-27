@@ -1,5 +1,6 @@
 // models/users_model.js
 import { mongodbInstance } from '../infrastructure/mongodb-connection.js';
+import { ObjectId } from 'mongodb';
 
 // Definición del esquema
 const userSchema = new mongodbInstance.Schema({
@@ -7,17 +8,13 @@ const userSchema = new mongodbInstance.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   /*Llista de favs, amb  referencia a article amb el seu id, default es null*/
-  favorites: {
-  type: [{type: String}],     // array de strings
-  default: []
-  }
+  favorites: [{ type: ObjectId, ref: 'Article' }]
 });
 
 export const User = mongodbInstance.model('User', userSchema);
 
 // afegir usuari
 export async function addDBUser(user) {
-
 
   const newUser = new User({
     username: user.username,
@@ -27,28 +24,60 @@ export async function addDBUser(user) {
 
   await newUser.save();
   console.log("Usuari afegit");
-  return newUser;
+
+    //he de retornar amb el id en format string (id de user i l'array de ids)
+  return {
+    ...newUser.toObject(),
+    _id: newUser._id.toString(),
+    favorites: []
+};
 }
 
+
+  //funcio per retornar user mitjançant email
 export async function searchUserDBEmail(email) {
-  return await User.findOne({ email });
-}
+  const user = await User.findOne({ email });
+  
+    //per si un cas es null
+  if (!user) return null;
 
+  //tornem a ficar els ids en strings (favs es unn array, pel que necesito fer iteracio per iteracio)
+  return {
+    ...user.toObject(),
+    _id: user._id.toString(),
+    favorites: user.favorites.map(fav => fav.toString())
+  };
+}
+  //funcio per retornar user mitjançant username
 export async function searchUserDBUsername(username) {
-  return await User.findOne({ username });
+  const user = await User.findOne({ username });
+  
+    //per si un cas es null
+  if (!user) return null;
+
+  //tornem a ficar els ids en strings (favs es unn array, pel que necesito fer iteracio per iteracio)
+  return {
+    ...user.toObject(),
+    _id: user._id.toString(),
+    favorites: user.favorites.map(fav => fav.toString())
+  };
 }
 
-export async function userFavoritesDB(username){
+
+  //funci per retornar tots els favs d'un usuari mitjançant el username
+export async function userFavoritesDB(username) {
   const user = await User.findOne({ username });
   console.log(username);
-  if(!user){
-    return [];
-  }
-  return user.favorites;
+  if (!user) return [];
+
+  // totes les iteracions amb ObjectId a string (favs)
+  return user.favorites.map(fav => fav.toString());
 }
 
+  //funcio per afegir a favorit (id de article)
 export async function addFavoriteDBArticle(username, articleId){
-  return await User.updateOne({username}, {$addToSet: {favorites: articleId}});
+    //convertir string (id) a objectId
+  return await User.updateOne({username}, {$addToSet: {favorites: new ObjectId(articleId)}});
 
   /*
     updatedOne, permet bsucar mitjançant un camp (username en aquest cas) i modificar altres
@@ -59,12 +88,17 @@ export async function addFavoriteDBArticle(username, articleId){
   */
 }
 
-export async function searchFavoriteIdDB(username, articleId){
-  return await User.findOne({username: username, favorites:{ $in: [articleId]}});
-
-}
-
+  //funcio per eliminar fav mitjançant Username i ArticleId
 export async function removeFavoriteDB(username, articleId){
-  return await User.updateOne({username}, {$pull: {favorites: articleId}});
+    //per a que mongodb elimini el objectId del article, hem de transformar l'articleId que li pasem a objectId
+  return await User.updateOne({username}, {$pull: {favorites: new ObjectId(articleId)}});
 }
 
+
+  //funcio per eliminar de favorits els articles que s'eliminen
+export async function removeDBArticleFromAllFavorites(articleId) {
+  await User.updateMany(
+    { favorites: articleId },
+    { $pull: { favorites: articleId } }
+  );
+}

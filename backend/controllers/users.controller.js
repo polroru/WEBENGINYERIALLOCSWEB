@@ -1,4 +1,4 @@
-import { addDBUser, searchUserDBEmail, searchUserDBUsername, userFavoritesDB, addFavoriteDBArticle, searchFavoriteIdDB, removeFavoriteDB} from "../models/users_models.js";
+import { addDBUser, searchUserDBEmail, searchUserDBUsername, userFavoritesDB, addFavoriteDBArticle, removeFavoriteDB} from "../models/users_models.js";
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../middleware/validate_user.js";
 import  bcrypt from 'bcrypt';
@@ -153,19 +153,19 @@ export function infoUsuari(req, res) {
 
 export async function userFavorites(req, res) {
   try {
-    // 1️⃣ Sacamos los IDs de favoritos del usuario
+    //  Sacamos los IDs de favoritos del usuario
     const favoriteArticlesId = await userFavoritesDB(req.params.username);
     console.log(req.params.username);
 
-    // 2️⃣ Si no hay favoritos, devolvemos array vacío
+    // Si no hay favoritos, devolvemos array vacío
     if (!favoriteArticlesId || favoriteArticlesId.length === 0) {
       return res.status(200).json([]); // devolvemos array vacío
     }
 
-    // 3️⃣ Buscamos los artículos completos en la DB
+    // Buscamos los artículos completos en la DB
     const favoriteArticles = await searchDBArticlesbyId(favoriteArticlesId);
 
-    // 4️⃣ Respondemos con los artículos
+    // Respondemos con los artículos
     res.status(200).json(favoriteArticles);
 
   } catch (err) {
@@ -174,7 +174,7 @@ export async function userFavorites(req, res) {
   }
 }
 
-//funcio per afegir id d'article existen en
+  //funcio per afegir id d'article existen en
 export async function addFavoriteArticle(req, res){
 
   //agafo el id i ho transformo a numero per si un cas
@@ -197,7 +197,7 @@ export async function addFavoriteArticle(req, res){
   res.status(200).json({message: 'Afegit a favorits'});
 }
 
-//funcio per veure si un id d'article es favorit
+  //funcio per veure si un id d'article es favorit
 export async function isFavorite(req, res) {
   const username = req.user.username; // mejor que venir por params
   const articleId = req.query.articleId;
@@ -216,7 +216,7 @@ export async function isFavorite(req, res) {
 
 
 
-//trec de favorit si existeix user, esta el id en l'array de favorit
+  //trec de favorit si existeix user, esta el id en l'array de favorit
 export async function removeFavorite(req, res){
   console.log("vamos a eliminar");
   //agafo el id i ho transformo a numero per si un cas

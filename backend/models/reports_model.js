@@ -1,8 +1,9 @@
 import { mongodbInstance } from '../infrastructure/mongodb-connection.js';
 import { ObjectId } from 'mongodb';
+import { deleteDBArticle } from './articles_model.js';
 
 const reportSchema = new mongodbInstance.Schema({
-  articleId: String,
+  articleId: ObjectId,
   comment: String,
   articleTitle: String,
   creatBy: { type: String, required: true },
@@ -74,7 +75,7 @@ export async function getAllDBReports(page, limit) {
 export async function addNewDBReport(report, username) {
  
   const newReport = new reportMongooseModel({
-    articleId: report.articleId,
+    articleId: new ObjectId(report.articleId), //hem de convertir a objectId
     articleTitle: report.articleTitle,
     comment: report.comment || '',    // pot estar buit
     creatBy: username,          
@@ -100,6 +101,9 @@ export async function solveDBReport(reportId) {
 
   // en cas de no exisitir o ja estar solved
   if (!updated) return false;
+
+    //aquesta funcio elimina de la base de dades (fica en "ocult") i despres si que elimina de favs de la gent
+  await deleteDBArticle(updated.articleId);
 
   console.log("Report editat");
   return {

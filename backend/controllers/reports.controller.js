@@ -26,9 +26,8 @@ export async function getReport(req, res){
 
 
 
-    //funcio per afegir reports
-    // FALTA CONTROLAR PARA VER SI EXISTE EL ARTICULO, POR LO DEMAS YA FUNCIONA
-
+  //funcio per afegir reports
+  // FALTA CONTROLAR PARA VER SI EXISTE EL ARTICULO, POR LO DEMAS YA FUNCIONA
 export async function addNewReport(req, res) {
   const { reportData } = req.body; //desestructuro les dades
   if(!reportData.articleId || !reportData.articleTitle) {
@@ -44,12 +43,8 @@ export async function addNewReport(req, res) {
 
 
 
-
-
-
-
-    //funcio per editar la funcio (estat), també s'hauria de borrar
-    //FUNCIONA EL CANVI D'ESTAT, FALTARIA BORRAR
+  //funcio per editar la funcio (estat), també s'hauria de borrar
+  //FUNCIONA EL CANVI D'ESTAT, FALTARIA BORRAR
 
 export async function solveReport(req, res) {
   const reportId = req.params.id; 
@@ -66,15 +61,10 @@ export async function solveReport(req, res) {
 }
 
 
-
-
-
-
-    //funcio que em torna tots els reports ()
-    //FUNCIONA PERFECTAMENT
-    //ORDENAT PER MES RECENTS
-    // http://localhost:3000/report/all?page=1&limit=5 A POSTMAN (QUERY PARAMS)
-
+  //funcio que em torna tots els reports ()
+  //FUNCIONA PERFECTAMENT
+  //ORDENAT PER MES RECENTS
+  // http://localhost:3000/report/all?page=1&limit=5 A POSTMAN (QUERY PARAMS)
 
 export async function getReportsPaginacio(req, res) {
   const page = parseInt(req.query.page) || 1;   //s'envien al query en format string( per aixo el parseInt)
