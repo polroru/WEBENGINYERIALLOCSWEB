@@ -1,6 +1,6 @@
 export interface User{
   username: string,
   email: string,
-  password: string,
+  rol: 'user' | 'admin',
   favorites: string[] | null
 };

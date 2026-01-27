@@ -36,13 +36,20 @@ export class ReportsService {
     return this.http.post<Report>(`${this.url}/report/addreport`, body, { headers });
   }
 
-
-    //funcio per a fer que un report estigui solucionat (borrar en un futur)
-  solveReport(id: string): Observable<Report>{
+    // funció per a fer que un report estigui solucionat (borrar en un futur)
+  solveReport(id: string, deleteArticle: boolean): Observable<Report>{
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.userToken || ''}` //authorization es un metadato, tiene este nombre por defecto
+      Authorization: `Bearer ${this.authService.userToken || ''}` //authorization es un metadato
     });
-    return this.http.patch<Report>(`${this.url}/report/solvereport/${id}`, {/*body buit, pero s'ha de posar*/}, { headers });
+
+    // paso deleteArticle como query string
+    const params = { delete: deleteArticle.toString() }; 
+
+    return this.http.patch<Report>(
+      `${this.url}/report/solvereport/${id}`, 
+      {}, // body buit
+      { headers, params } // headers i params
+    );
   }
 
 

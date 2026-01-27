@@ -11,14 +11,18 @@ export class AuthService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000";
   userToken: string | null = null;
-  currentUser = signal<string | null>(null);
+  currentUser = signal<User | null>(null);
   private router = inject(Router);
 
 
   //recuperem token quan sortim del servei angular i tornem a entrar
   constructor() {
     const token = localStorage.getItem('userToken');
-    if (token) {
+    const user = localStorage.getItem('currentUser'); 
+
+    if (user) this.currentUser.set(JSON.parse(user)); // <--- en el cas de tindre el user guardat al localstorage, ho guardem com a currentUser
+
+    if (token && !user) { //en el cas de tindre el token pero no el user, fem un request del user 
       this.userToken = token;
       this.loadCurrentUser();
     }
@@ -41,20 +45,12 @@ export class AuthService {
 
   logout() {
     this.userToken = null;
-    localStorage.removeItem('userToken');//borrem token
-    this.currentUser.set(null); //borrme usuari guardat
-    this.router.navigate(['/sign-in']); // redirigx al login
+    localStorage.removeItem('userToken'); // borrem token
+    localStorage.removeItem('currentUser'); //borrem info del usuari guardat al local storage
+    this.currentUser.set(null);            // borrem usuari
+    this.router.navigate(['/sign-in']);    // redirigim al login
   }
 
-
-
-  /*listenChanges(){
-    this.router.events.subscribe(e => {
-      if(!this.isLoggedIn()){
-        this.router.navigate(['/sign-in']); // redirigx al login
-      }
-    })
-  }*/
 
 
 
@@ -65,10 +61,10 @@ export class AuthService {
     const headers = { Authorization : `Bearer ${this.userToken}` };
 
 
-     //estic rebent info perillosa (password y email) que no necessito, tot i que la password sigui hasheada, ideal fer canvi a nomes username i favorites
+     //rebo el username
     this.http.get<User>(`${this.url}/user/me`, { headers })
       .subscribe({
-        next: user => this.currentUser.set(user.username),
+      next: user => this.currentUser.set(user), // guardem tot l'usuari
         error: () => this.logout() // fa logout si token ha expriat
       });
   }

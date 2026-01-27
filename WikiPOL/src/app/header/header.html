@@ -7,13 +7,15 @@
 
   <div class="right">
 <span class="username" *ngIf="authService.isLoggedIn()">
-  {{ authService.currentUser() }}
+  {{ authService.currentUser()?.username }}
+  <small *ngIf="authService.currentUser()?.rol === 'admin'">(admin)</small>
 </span>
+
 
     <button class="btn-accion" [routerLink]="['/sign-in']" *ngIf="!authService.isLoggedIn()">Sign In</button>
     <button class="btn-accion" [routerLink]="['/sign-up']" *ngIf="!authService.isLoggedIn()">Sign Up</button>
     <button class="btn-multitask btn-fav" (click)="onSubmitFav()" *ngIf="authService.isLoggedIn()">Favorits</button>
-    <button class="btn-multitask btn-report" (click)="onSubmitReport()" *ngIf="authService.isLoggedIn()">Reports</button>
+    <button class="btn-multitask btn-report" (click)="onSubmitReport()" *ngIf="authService.isLoggedIn() && authService.currentUser()?.rol === 'admin'">Reports</button>
     <button class="btn-multitask btn-logout" (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</button>
 
   </div>

@@ -25,7 +25,7 @@ export class Header {
 
 
   onSubmitFav(){
-    if(!this.authService.isLoggedIn()){
+    if(!this.authService.isLoggedIn() && this.authService.currentUser()?.rol !== 'admin'){
       this.router.navigate(['/sign-in']); // redirigx al login
     }else{
       this.router.navigate(['/articles/fav']);

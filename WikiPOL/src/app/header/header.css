@@ -85,3 +85,9 @@
 .btn-logout:hover {
   background: #cfcfcf;
 }
+
+.username small {
+  font-size: 0.7rem;
+  color: #888;
+  margin-left: 0.3rem;
+}

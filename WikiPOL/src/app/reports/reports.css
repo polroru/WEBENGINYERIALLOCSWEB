@@ -5,6 +5,7 @@
   color: #555;
   margin-top: 2rem;
 }
+
 /* Contenidor general del report */
 .report-detail {
   max-width: 1200px;
@@ -50,19 +51,36 @@
 }
 
 /* Botons */
+.report-buttons {
+  display: flex;
+  justify-content: space-between; /* verd a l'esquerra, vermell a la dreta */
+  gap: 1rem;
+}
+
 button {
   padding: 0.6rem 1.2rem;
   border-radius: 5px;
   border: none;
   color: #fff;
-  background-color: #dc3545;
   cursor: pointer;
   transition: opacity 0.3s, background-color 0.3s;
   align-self: flex-start;
 }
 
-button:hover {
+.btn-red {
+  background-color: #dc3545;
+}
+
+.btn-red:hover {
   background-color: #a71d2a;
+}
+
+.btn-green {
+  background-color: #28a745;
+}
+
+.btn-green:hover {
+  background-color: #1e7e34;
 }
 
 button:disabled {

@@ -49,8 +49,7 @@ export class Reports {
 
 
 
-  //COMENTAR Y EXPLICAR
-  onSubmit() {
+  onSolve(deleteArticle: boolean) {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/sign-in']);
       return;
@@ -59,13 +58,14 @@ export class Reports {
     const currentReport = this.report();
     if (!currentReport || currentReport.state === 'solved') return;
 
-    this.reportsService.solveReport(currentReport._id).subscribe({
+    // pasamos el query ?delete=true/false al backend
+    this.reportsService.solveReport(currentReport._id, deleteArticle).subscribe({
       next: updatedReport => {
         this.report.set(updatedReport);
         this.solved.set(true);
         console.log('Report solucionat!');
       },
       error: err => console.error('Error al resoldre el report:', err)
-    })
-  };
+    });
+  }
 }

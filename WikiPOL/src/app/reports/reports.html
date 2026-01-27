@@ -22,14 +22,26 @@
       <span>Creat per: {{ report()?.creatBy }}</span>
     </div>
 
-    <!-- Botó per eliminar l'article relacionat, només si el report NO està resolt -->
-    <button 
-      type="button" 
-      (click)="onSubmit()" 
-      *ngIf="report()?.state !== 'solved'"
-    >
-      Eliminar article
-    </button>
+    <!-- Botons per resoldre el report només si NO està resolt -->
+    <div class="report-buttons" *ngIf="report()?.state !== 'solved'">
+      <!-- Botó verd: No eliminar article -->
+      <button 
+        type="button" 
+        class="btn-green"
+        (click)="onSolve(false)"
+      >
+        No eliminar
+      </button>
+
+      <!-- Botó vermell: Eliminar article -->
+      <button 
+        type="button" 
+        class="btn-red"
+        (click)="onSolve(true)"
+      >
+        Eliminar article
+      </button>
+    </div>
 
     <!-- Missatge que indica que el report ja està resolt -->
     <span class="resolved-message" *ngIf="report()?.state === 'solved'">

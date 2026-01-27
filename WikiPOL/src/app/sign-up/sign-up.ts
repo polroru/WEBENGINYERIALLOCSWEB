@@ -37,7 +37,7 @@ export class SignUp {
     if (this.signUpForm.valid) {
       console.log('Dades del registre', this.signUpForm.value);
       this.authService.signUp(this.signUpForm.value).subscribe(res => {
-        this.authService.currentUser.set(res.user.username); //guardo usuari
+        this.authService.currentUser.set(res.user); //guardo usuari
         this.authService.userToken = res.token;
         localStorage.setItem('userToken', res.token);
         console.log('Signup correcte, token guardat');

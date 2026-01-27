@@ -1,15 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReportsService } from '../services/reports-service';
 import { Report } from '../models/Report';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-list',
-  imports: [    
-    CommonModule,
-    RouterModule
-  ],
+  imports: [],
   templateUrl: './report-list.html',
   styleUrl: './report-list.css',
 })
@@ -38,7 +34,7 @@ export class ReportList {
     this.reportsService.getAllReports(this.page, this.limit).subscribe(res => {
       this.reports.set(res.reports);
       this.total = res.total;
-      this.loading.set(false); // carrega completada
+      this.loading.set(false); // carga completada
     });
   }
 
