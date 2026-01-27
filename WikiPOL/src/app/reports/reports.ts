@@ -17,11 +17,12 @@ import { AuthService } from '../services/authservice';
 export class Reports {
 
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  protected router = inject(Router);
   private reportsService = inject(ReportsService);
   protected authService = inject(AuthService);
   protected report = signal<Report | null>(null); // signal reactiva
   protected solved = signal<boolean>(false);   // estado de resuelto
+  protected loading = signal(true);
 
   constructor() {
     const id = this.route.snapshot.params['id'];
@@ -30,12 +31,19 @@ export class Reports {
 
     //carreguem el report i comprovem si esta resolt o no (es guarda a Solved)
   private loadReport(id: string) {
-    this.reportsService.getReport(id).subscribe(report => {
-      this.report.set(report);
-      this.solved.set(report.state === 'solved');
+    this.loading.set(true);
+    this.reportsService.getReport(id).subscribe({
+      next: report => {
+        this.report.set(report);
+        this.solved.set(report.state === 'solved');
+        this.loading.set(false); // ha carregat
+      },
+      error: () => {
+        this.report.set(null);
+        this.loading.set(false);
+      }
     });
   }
-
 
 
 

@@ -11,6 +11,17 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Loading */
+.loading {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+}
+
 /* Título y contenido */
 .article-detail h1 {
   font-size: 2rem;
@@ -42,7 +53,8 @@
 
 /* Botones generales */
 .button-group button,
-.new-report-box button {
+.new-report-box button,
+.back-btn {
   font-weight: 600;
   padding: 0.6rem 1.4rem;
   border-radius: 8px;
@@ -141,4 +153,41 @@
   color: green;
   font-weight: bold;
   text-align: center;
+}
+
+/* Artículo no encontrado (suavizado) */
+.article-not-found {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #f8f9fa; /* fondo claro neutro */
+  border-radius: 8px;
+  border: 1px solid #dee2e6; /* borde gris suave */
+  color: #495057; /* texto gris oscuro */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* sombra ligera */
+}
+
+/* Botón volver al inicio */
+.back-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #6c757d; /* gris neutro */
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+.back-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.back-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }

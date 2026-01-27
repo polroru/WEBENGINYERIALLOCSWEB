@@ -1,17 +1,17 @@
-/* Título */
+/* Títol de la pàgina */
 h1 {
   text-align: center;
   margin: 2rem 0 0.5rem 0;
 }
 
-/* Total */
+/* Mostrem el total de reports trobats */
 .total-reports {
   text-align: center;
   margin-bottom: 1.5rem;
   font-weight: bold;
 }
 
-/* Contenedor */
+/* Contenidor de les targetes de reports */
 .reports-container {
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ h1 {
   padding: 0 2rem;
 }
 
-/* Tarjeta */
+/* Targeta de cada report */
 .report-card {
   padding: 1rem;
   border: 1px solid #ccc;
@@ -35,10 +35,12 @@ h1 {
   background-color: #ececec;
 }
 
+/* Títol dins la targeta */
 .report-card h2 {
   margin: 0 0 0.5rem 0;
 }
 
+/* Comentari dins la targeta */
 .report-card p {
   margin: 0 0 0.5rem 0;
   white-space: nowrap;
@@ -46,11 +48,32 @@ h1 {
   text-overflow: ellipsis;
 }
 
+/* Metadades generals dins la targeta */
 .report-card small {
   color: #666;
 }
 
-/* Paginación */
+/* Estat del report (vermell si no resolt, verd si resolt) */
+.report-card .report-state {
+  display: block;
+  margin-top: 0.3rem;
+  font-weight: bold;
+  color: red; /* per defecte: no resolt */
+}
+
+.report-card .report-state.solved {
+  color: green; /* resolt */
+}
+
+/* Missatge de carregament */
+.loading {
+  text-align: center;
+  font-weight: bold;
+  margin: 2rem 0;
+  color: #555;
+}
+
+/* Paginació */
 .pagination {
   display: flex;
   justify-content: center;
@@ -66,9 +89,11 @@ h1 {
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .pagination button:disabled {
   background-color: #aaa;
   cursor: not-allowed;
 }
+

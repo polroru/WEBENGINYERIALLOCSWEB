@@ -1,30 +1,45 @@
-<div class="report-detail">
-  <!-- Títol del article (centrat) -->
-  <h1>{{ report()?.articleTitle }}</h1>
+@if (loading()) {
+  <!-- Mostrem un missatge de carregament mentre esperem les dades -->
+  <div class="loading">Carregant report...</div>
+} @else if (report()) {
+  <div class="report-detail">
+    <!-- Títol del report (centrat) -->
+    <h1>{{ report()?.articleTitle }}</h1>
 
-  <!-- Comentari del report (alineat a l'esquerra) -->
-  <p class="report-comment">
-    <span>Comentari:</span> {{ report()?.comment }}
-  </p>
+    <!-- Comentari del report (alineat a l'esquerra) -->
+    <p class="report-comment">
+      <!-- La paraula "Comentari:" en negreta -->
+      <span>Comentari:</span> {{ report()?.comment }}
+    </p>
 
-  <!-- Metadades -->
-  <div class="report-meta">
-    <span>ID report: {{ report()?._id }}</span>
-    <span>ID article: {{ report()?.articleId }}</span>
-    <span>Creat per: {{ report()?.creatBy }}</span>
+    <!-- Metadades del report -->
+    <div class="report-meta">
+      <!-- Mostrem l'ID del report -->
+      <span>ID report: {{ report()?._id }}</span>
+      <!-- Mostrem l'ID de l'article relacionat -->
+      <span>ID article: {{ report()?.articleId }}</span>
+      <!-- Mostrem qui ha creat el report -->
+      <span>Creat per: {{ report()?.creatBy }}</span>
+    </div>
+
+    <!-- Botó per eliminar l'article relacionat, només si el report NO està resolt -->
+    <button 
+      type="button" 
+      (click)="onSubmit()" 
+      *ngIf="report()?.state !== 'solved'"
+    >
+      Eliminar article
+    </button>
+
+    <!-- Missatge que indica que el report ja està resolt -->
+    <span class="resolved-message" *ngIf="report()?.state === 'solved'">
+      Report solucionat
+    </span>
   </div>
-
-  <!-- Botó per eliminar report (si no està solucionat) -->
-  <button 
-    type="button" 
-    (click)="onSubmit()" 
-    *ngIf="report()?.state !== 'solved'"
-  >
-    Eliminar article
-  </button>
-
-  <!-- Missatge de report solucionat -->
-  <span class="resolved-message" *ngIf="report()?.state === 'solved'">
-    Report solucionat
-  </span>
-</div>
+} @else {
+  <div class="report-not-found">
+    <!-- Mostrem missatge si el report no existeix o ha estat eliminat -->
+    <h2>Aquest report no existeix o ha estat eliminat</h2>
+    <button (click)="router.navigate(['/'])">Tornar a l'inici</button>
+  </div>
+}

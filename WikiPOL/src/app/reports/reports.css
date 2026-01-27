@@ -1,48 +1,55 @@
+/* Loading */
+.loading {
+  text-align: center;
+  font-weight: bold;
+  color: #555;
+  margin-top: 2rem;
+}
 /* Contenidor general del report */
 .report-detail {
-  max-width: 1200px;         
-  margin: 2rem auto;         
-  padding: 1rem 2rem;        
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;                 
-  border: 1px solid #ddd;    
+  gap: 1rem;
+  border: 1px solid #ddd;
   border-radius: 10px;
   background-color: #f9f9f9;
 }
 
-/* Títol del report - CENTRAT */
+/* Títol del report */
 .report-detail h1 {
   font-size: 2rem;
   font-weight: bold;
-  text-align: center;      
+  text-align: center;
   margin: 0;
 }
 
-/* Comentari destacat - alineat a l'esquerra */
+/* Comentari destacat */
 .report-comment {
-  font-size: 1.1rem;       
+  font-size: 1.1rem;
   color: #222;
-  text-align: left;       
+  text-align: left;
   margin: 0.5rem 0 1rem 0;
   word-wrap: break-word;
 }
 
 .report-comment span {
-  font-weight: bold;       /* "Comentari:" en negreta */
+  font-weight: bold;
 }
 
-/* Metadades del report */
+/* Metadades */
 .report-meta {
   font-size: 0.9rem;
   color: #555;
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;         
+  flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-/* Botó per eliminar */
+/* Botons */
 button {
   padding: 0.6rem 1.2rem;
   border-radius: 5px;
@@ -69,4 +76,39 @@ button:disabled {
   color: green;
   font-size: 1rem;
   text-align: left;
+}
+
+/* Report no trobat */
+.report-not-found {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #fff3cd;
+  border-radius: 10px;
+  border: 1px solid #ffeeba;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Botó tornar a l'inici */
+.back-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6c757d, #495057);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: all 0.2s ease;
+}
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+.back-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }

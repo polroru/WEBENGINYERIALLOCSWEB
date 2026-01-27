@@ -1,62 +1,76 @@
-<div class="article-detail">
-  <h1>{{ article()?.title }}</h1>
-  <p>{{ article()?.content }}</p>
-
-  <div class="article-meta">
-    <span>Creat per: {{ article()?.creatBy }}</span>
-    <span>({{ article()?.createdAt | date:'short' }})</span>
+@if (loading()) {
+  <!-- Mostrem missatge mentre es carrega -->
+  <div class="loading">
+    Carregant article...
   </div>
+} @else if (article()) {
+  <!-- Mostrem l'article si existeix -->
+  <div class="article-detail">
+    <h1>{{ article()!.title }}</h1>
+    <p>{{ article()!.content }}</p>
 
-  @if(article()!.actualitzatBy) {
+    <!-- Metadades de l'article -->
     <div class="article-meta">
-      <span>Actualitzat per: {{ article()?.actualitzatBy }}</span>
-      <span>({{ article()?.updatedAt | date:'short' }})</span>
+      <span>Creat per: {{ article()!.creatBy }}</span>
+      <span>({{ article()!.createdAt | date:'short' }})</span>
     </div>
-  }
 
-  <!-- BOTONS PRINCIPALS -->
-  <div class="button-group">
-    <button
-      class="edit-btn"
-      *ngIf="authService.isLoggedIn()"
-      [disabled]="!authService.isLoggedIn()"
-      (click)="onSubmit()"
-    >
-      Editar
-    </button>
+    @if (article()!.actualitzatBy) {
+      <div class="article-meta">
+        <span>Actualitzat per: {{ article()!.actualitzatBy }}</span>
+        <span>({{ article()!.updatedAt | date:'short' }})</span>
+      </div>
+    }
 
+    <!-- BOTONS -->
+    <div class="button-group">
+      <button
+        class="edit-btn"
+        *ngIf="authService.isLoggedIn()"
+        (click)="onSubmit()"
+      >
+        Editar
+      </button>
 
-      <!--amb ngIf no es carrega el boto fins que no es compleixi la condicio -->
-    <button
-      class="fav-btn"
-      *ngIf="authService.isLoggedIn()" 
-      [disabled]="!authService.isLoggedIn()"
-      (click)="afegirFav()"
-      [class.fav-active]="isFav()"
-    >
-      ★ Guardar
-    </button>
+      <button
+        class="fav-btn"
+        *ngIf="authService.isLoggedIn()"
+        (click)="afegirFav()"
+        [class.fav-active]="isFav()"
+      >
+        ★ Guardar
+      </button>
 
-    <button
-      class="report-btn"
-      *ngIf="authService.isLoggedIn()"
-      (click)="showReport = !showReport"
-    >
-      Reportar
+      <button
+        class="report-btn"
+        *ngIf="authService.isLoggedIn()"
+        (click)="showReport = !showReport"
+      >
+        Reportar
+      </button>
+    </div>
+
+    <!-- Àrea per crear report -->
+    <div class="new-report-box" *ngIf="showReport">
+      <textarea
+        id="newReportText"
+        placeholder="Escriu aquí el teu report"
+        [(ngModel)]="reportText"
+      ></textarea>
+      <button type="button" (click)="crearReport()">Enviar Report</button>
+    </div>
+
+    <!-- Missatge de report creat -->
+    <span class="success-msg" *ngIf="success">
+      Report creat correctament
+    </span>
+  </div>
+} @else {
+  <!-- Missatge si l'article no existeix o ha estat eliminat -->
+  <div class="article-not-found">
+    <h2>Aquest article no existeix o ha estat eliminat</h2>
+    <button class="back-btn" (click)="router.navigate(['/'])">
+      Tornar a l'inici
     </button>
   </div>
-
-  <!-- ÀREA DE REPORT -->
-  <div class="new-report-box" *ngIf="showReport">
-    <textarea
-      id="newReportText"
-      placeholder="Escriu aquí el teu report"
-      [(ngModel)]="reportText"
-    ></textarea>
-    <button type="button" (click)="crearReport()">Enviar Report</button>
-  </div>
-
-  <span class="success-msg" *ngIf="success">
-    Report creat correctament
-  </span>
-</div>
+}
