@@ -16,7 +16,6 @@ export class AddArticles {
 
   private articlesService = inject(ArticlesService);
   protected succes = false;
-  private authService = inject(AuthService);
 
 
 

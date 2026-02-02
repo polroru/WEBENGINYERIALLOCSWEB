@@ -1,0 +1,20 @@
+<h2>Crear nuevo bug</h2>
+
+<div class="bug-create">
+
+  <label for="description">Descripción</label>
+  <input id="description" type="text">
+
+  <label for="steps">Pasos de reproducción</label>
+  <textarea id="steps"></textarea>
+
+  <label for="severity">Severidad (1–10)</label>
+  <select id="severity">
+    @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+      <option [value]="n">{{ n }}</option>
+    }
+  </select>
+
+  <button (click)="onSubmit()">Crear bug</button>
+
+</div>

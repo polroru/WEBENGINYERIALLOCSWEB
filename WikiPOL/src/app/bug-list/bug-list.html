@@ -1,0 +1,49 @@
+<h1>Bugs</h1>
+
+<!-- filtres -->
+<div class="filters">
+
+  <!-- filtre status -->
+  <label>Status:</label>
+  <select (change)="filtrarStatus($any($event.target).value)">
+    <option value=""> </option>
+    <option value="Open">Open</option>
+    <option value="Work in progress">Work in progress</option>
+    <option value="Solved">Solved</option>
+  </select>
+
+  <!-- filtre data -->
+  <label>Data:</label>
+  <select (change)="filtrarData($any($event.target).value)">
+    <option value=""></option>
+    <option value="desc">Ascendent</option>
+    <option value="asc">Descendent</option>
+  </select>
+
+  <!-- filtre severitat -->
+  <label>Severitat</label>
+  <select (change)="filtrarSeveritat($any($event.target).value)">
+    <option value=""></option>
+    <option value="asc">Ascendent</option>
+    <option value="desc">Descendent</option>
+  </select>
+
+</div>
+
+<hr>
+
+<!-- LLista de bugs -->
+<div class="bugs-container">
+  @for(bug of bugs(); track bug._id) {
+    <div class="bug-card" (click)="openBug(bug._id)">
+      <h2>{{ bug._id }}</h2>
+      <p>Severitat: {{ bug.severity }}</p>
+      <p>Status: {{ bug.status }}</p>
+      <p>Data creacio: {{ bug.createdAt }}</p>
+
+      @if(bug.updatedAt){
+        <p>Data actualitzacio: {{ bug.updatedAt }}</p>
+      }
+    </div>
+  }
+</div>

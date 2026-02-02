@@ -90,14 +90,8 @@ export async function addBug(req,res){
         status: status || 'Open'
     };
 
-
-
-    if (!bugData.bug_description || !bugData.reproduction_steps || !bugData.severity){
-        return res.status(400).json({ error: 'Falten dades' });
-    }else if(bugData.severity < 1 || bugData.severity > 10)
-    {
-        return res.status(400).json({ error: 'Severitat fora del rang de 1 a 10'});
-    }
+ const missing = [];
+ if (!bugData.bug_description) missing.push("bug_description"); if (!bugData.reproduction_steps) missing.push("reproduction_steps"); if (bugData.severity === undefined || bugData.severity === null) missing.push("severity"); if (missing.length > 0) { return res.status(400).json({ error: "Falten dades", missing_fields: missing }); }
     console.log("Nou bug afegit");
     const newBug = await addDBBug(bugData);
     return res.status(201).json(newBug);

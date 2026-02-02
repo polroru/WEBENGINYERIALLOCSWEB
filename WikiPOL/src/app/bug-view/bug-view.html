@@ -1,0 +1,38 @@
+@if (bug() === null) {
+  <p>Este bug no existe.</p>
+} @else {
+
+  <h2>Bug: {{ bug()?._id }}</h2>
+
+  <p><strong>Descripción:</strong> {{ bug()?.bug_description }}</p>
+
+  <p><strong>Pasos de reproducción:</strong></p>
+  <pre>{{ bug()?.reproduction_steps }}</pre>
+
+  <p><strong>Severidad:</strong> {{ bug()?.severity }}</p>
+
+  <p><strong>Comentarios adicionales:</strong></p>
+  <pre>{{ bug()?.additional_comments?.join('\n') }}</pre>
+
+  <p><strong>Estado:</strong> {{ bug()?.status }}</p>
+
+  <p><strong>Creado:</strong> {{ bug()?.createdAt }}</p>
+  <p><strong>Actualizado:</strong> {{ bug()?.updatedAt }}</p>
+
+  <div class="mini-form">
+
+    <label for="status">Estat</label>
+    <select id="status">
+      <option value="Open" [selected]="bug()?.status === 'Open'">Obert</option>
+      <option value="Work in progress" [selected]="bug()?.status === 'Work in progress'">En procés</option>
+      <option value="Solved" [selected]="bug()?.status === 'Solved'">Tancat</option>
+    </select>
+
+    <label for="comment">Comentari nou</label>
+    <textarea id="comment"></textarea>
+
+    <button (click)="updateBug()">Guardar canvis</button>
+
+  </div>
+
+}

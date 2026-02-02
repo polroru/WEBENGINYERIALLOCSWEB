@@ -61,5 +61,25 @@ export const routes: Routes = [
       },
 
     ]
+  },
+  {
+    path: 'bug-reports',
+    children: [
+      {
+        path:'',
+        loadComponent: () => import('./bug-list/bug-list').then(m => m.BugList),
+        title: "Bug list"
+      },
+      {
+        path:'create',
+        loadComponent: () => import('./bug-create/bug-create').then(m => m.BugCreate),
+        title: "Bug create"
+      },
+      {
+        path:':id',
+        loadComponent: () => import('./bug-view/bug-view').then(m => m.BugView),
+        title: "Bug view"
+      },
+    ]
   }
 ]

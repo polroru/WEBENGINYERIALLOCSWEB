@@ -7,7 +7,7 @@ import { getAllBugs, getBug, addBug, editBug } from "../controllers/bugs.control
 export const bugsRouter = express.Router();
 
 //ruta per agafar la llista de reports
-bugsRouter.get('/getall', getAllBugs);  //funciona
+bugsRouter.get('/getall', validateUser, getAllBugs);  //funciona
 
 
 //ruta per agafar un sol bug
