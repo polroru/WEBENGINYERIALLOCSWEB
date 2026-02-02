@@ -9,7 +9,7 @@ const articleSchema = new mongodbInstance.Schema({
   state: {
     type: String,
     enum: ['active', 'deleted'], // nomes aquests dos valors
-    default: 'active'          //default esta unsolved
+    default: 'active'          //default esta active
   },
   creatBy: { type: String, required: true },
   actualitzatBy: { type: String, default: null }

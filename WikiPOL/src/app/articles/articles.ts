@@ -103,7 +103,7 @@ export class Articles {
     if (!article) return;
 
       //enviem tot el necessari per fer el report (una part del objecte report (partial))
-    this.reportsService.addNewReport({articleId: article._id, articleTitle: article.title,comment: comment.value}).subscribe(() => {
+    this.reportsService.addNewReport({articleId: article._id, articleTitle: article.title, comment: comment.value}).subscribe(() => {
       comment.value = ''; //reset de el valor del comentari a la pagina
       this.success = true; // mostrem missatge
       console.log('Nou report creat!');

@@ -67,7 +67,7 @@ export async function getAllDBReports(page, limit) {
 
     //retorno el total de documents que hi han, la pagina actual, el limit agafat i l'array de reports
     //aquesta info per donar info al usuari que utilitza el frontend
-  return { total, page, limit, reports };
+  return { total, page, limit, reportsWithIdString };
 }
 
 //add report

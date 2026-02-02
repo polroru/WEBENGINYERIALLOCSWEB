@@ -3,9 +3,11 @@ import express from 'express';
 
 import { articlesRouter } from './routes/articles.routes.js';
 
-import { usersRouter } from './routes/users.routes.js'
+import { usersRouter } from './routes/users.routes.js';
 
-import { reportsRouter } from './routes/reports.routes.js'
+import { reportsRouter } from './routes/reports.routes.js';
+
+import { bugsRouter } from './routes/bugs.routes.js';
 
 import bodyParser from 'body-parser';
 
@@ -27,6 +29,8 @@ app.use('/articles', articlesRouter);
 app.use('/user', usersRouter);
 
 app.use('/report', reportsRouter);
+
+app.use('/bugs', bugsRouter);
 
 app.use((req, res) => {
   res.send('Page not found')

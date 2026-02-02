@@ -74,10 +74,10 @@ export async function solveReport(req, res) {
 export async function getReportsPaginacio(req, res) {
   const page = parseInt(req.query.page) || 1;   //s'envien al query en format string( per aixo el parseInt)
   const limit = parseInt(req.query.limit) || 10;
-  console.log("enviar paginacion");
+  console.log("enviar paginacio");
     //comprovo que no siguin numeros negatius
   if (page < 1 || limit < 1) {
-  return res.status(400).json({ message: "Page y limit deben ser positivos" });
+  return res.status(400).json({ message: "Page i liit han de ser positius" });
 }
 
   try {
@@ -85,6 +85,6 @@ export async function getReportsPaginacio(req, res) {
     res.json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Error al obtener reports" });
+    res.status(500).json({ message: "Error al obtenir reports" });
   }
 }
