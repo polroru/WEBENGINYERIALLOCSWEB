@@ -96,13 +96,10 @@ export async function addDBBug(bugData){
 //funcio per editar estat d'un bug
 export async function editDBBug(bugData, id){
     const updatedBug = await bugMongooseModel.findOneAndUpdate(
-        {_id: new ObjectId(new ObjectId(id))},
+        {_id: new ObjectId(id)},
         {
-            bug_description: bugData.bug_description,
-            reproduction_steps: bugData.reproduction_steps,
-            severity: bugData.severity,
-            additional_comments: bugData.additional_comments || [], // si no hi ha comentari es queda buit (l'array)
-            status: bugData.status
+                additional_comments: bugData.additional_comments, 
+                status: bugData.status
         },
         { new: true } //retornem objecte actualitzrt
     );

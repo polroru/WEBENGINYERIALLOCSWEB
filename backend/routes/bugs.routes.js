@@ -19,7 +19,7 @@ bugsRouter.post('/postbug', addBug); //funciona
 
 
 //ruta per fer una actualitzacio de un bug
-bugsRouter.patch('/update/:id', editBug); //funciona, falten filtres 
+bugsRouter.patch('/update/:id', editBug); //funciona
 
 
 
